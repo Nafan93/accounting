@@ -79,7 +79,10 @@ class InvoiceController extends Controller
     {
         $matchThese = ['user_id'=>$user, 'company_id'=>$company, 'id'=>$invoice];
         $showInvoice = Invoice::where($matchThese)
-            ->with(['acceptance_certificate', 'company', 'company.products', 'customer', 'number', 'invoice_products'])
+            ->with(['acceptance_certificate',
+                    'company', 'company.products', 'company.acceptance_certificates',
+                    'customer', 'number', 'invoice_products'
+                    ])
             ->first();
         return response()->json($showInvoice, 200);
     }
@@ -91,11 +94,12 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Invoice $invoice)
+    public function update(Request $request,  $user, $company, $invoice)
     {
+        $invoice = Invoice::find($invoice);
         $invoice->update($request->all());
         
-        return response()->json($request->all(), 200);
+        return response()->json($invoice, 200);
     }
 
     /**

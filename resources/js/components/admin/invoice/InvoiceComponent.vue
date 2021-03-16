@@ -1,357 +1,138 @@
 <template>
-    <div class="uk-container">
-        <div class="uk-width-1-1">
-            <ul class="uk-breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><router-link :key="company.id" :to="{ name: 'showCompany', params: { companyID: company.id }}" >{{ company.name }}</router-link></li>
-                <li><a>Счета</a></li>
-            </ul> 
-            <app-navigation v-bind:user="userID" v-bind:company="company.id"></app-navigation>
-            <div uk-grid>
-                <div class="uk-width-1-1">
-                    <div class="uk-card">
-                    <div class="uk-card-header uk-flex uk-flex-middle uk-flex-between">
-                        <h3 class="uk-card-title uk-margin-remove">Счета {{ company.name }} </h3>
+    <div>
+        <app-navigation v-bind:user="userID" v-bind:company="company.id"></app-navigation>
+        <div class="uk-container uk-margin-small-top">
+            <div class="uk-width-1-1">
+                <ul class="uk-breadcrumb">
+                    <li><router-link :key="company.id" :to="{ name: 'showCompany', params: { companyID: company.id }}" >{{ company.name }}</router-link></li>
+                    <li><a>Счета</a></li>
+                </ul> 
+                <div uk-grid>
+                    <div class="uk-width-1-1">
+                        <div class="uk-card">
+                            <div class="uk-card-header uk-flex uk-flex-middle uk-flex-between">
+                                <h3 class="uk-card-title uk-margin-remove">Счета {{ company.name }} </h3>
 
-                        <div>
-                            <button
-                                class="uk-button uk-button-primary"
-                                type="button"
-                                uk-toggle="target: #addNew"
-                                @click="getInvoiceNumber()"
-                            >
-                                Добавить счет
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="card-body table-responsive p-0" v-if="company.invoices != 0">
-                        <table class="uk-table" style="text-align: center">
-                            <tbody>
-                                <tr>
-                                    <th>№</th>
-                                    <th>Дата</th>
-                                    <th>Клиент</th>
-                                    <th>Сумма</th>
-                                    <th>Оплачен</th>
-                                    <th>Акт</th>
-                                    <th>УПД</th>
-                                    <th>Товарная накладная</th>
-                                    <th>Счет-фактура</th>
-                                </tr>
-
-                                <tr v-for="invoice in company.invoices" :key="invoice.id">
-                                    <td v-if="invoice.number != null">
-                                        <router-link :key="company.id" :to="{ name: 'showInvoice', params: { companyID: company.id, invoiceID:invoice.id  }}" >{{ invoice.number.invoice_number }}</router-link>
-                                    </td>
-                                    <td v-else>Ошибка!</td>
-                                    <td>{{ moment(invoice.date).locale('ru').format('LL') }}</td>
-                                
-                                    <td v-if="invoice.customer != 0">
-                                        {{ invoice.customer.name }}
-                                    </td>
-                                    <td v-else>
-                                    Ошибка
-                                    </td>
-                                    <td>{{ invoice.invoice_total | currency }}</td>
-                                    <td v-if="invoice.paid ==1 || invoice.paid != null" class="uk-text-success">Оплачен</td>
-                                    <td v-else><button class="uk-button uk-button-link uk-text-danger" @click="changePaidStatus(invoice.id)">Не оплачен</button></td>
-                                    <td v-if="invoice.acceptance_certificate != null">
-                                        <router-link :key="company.id" :to="{ name: 'ShowAcceptanceCertificate', params: { userID:userID, companyID: companyID, acceptance_certificateID:invoice.acceptance_certificate.id  }}" >{{ invoice.acceptance_certificate.number }}</router-link>
-                                    </td>
-                                    <td v-else>
-                                        <button class="uk-button uk-button-link" @click="createAcceptanceCertificate(invoice.id)">Добавить</button>
-                                    </td>
-                                    <td v-if="invoice.packing_list_id != null">
-                                        {{ invoice.packing_list_id }}
-                                    </td>
-                                    <td v-else>
-                                        <a href="" class="uk-button uk-button-link">Добавить</a>
-                                    </td>
-                                    <td v-if="invoice.packing_list_id != null">
-                                        {{ invoice.packing_list_id }}
-                                    </td>
-                                    <td v-else>
-                                        <a href="" class="uk-button uk-button-link">Добавить</a>
-                                    </td>
-                                    <td v-if="invoice.vat_invoice_id != null">
-                                        {{ invoice.vat_invoice_id }}
-                                    </td>
-                                    <td v-else>
-                                        <a href="" class="uk-button uk-button-link">Добавить</a>
-                                    </td>
-                                    <td>
-                                        <a href="#" data-id="invoice.id" @click="editModalWindow(invoice)">
-                                            <span uk-icon="pencil"></span>
-                                        </a>
-                                        <span>|</span>
-                                        <button @click="deleteInvoice(invoice.id)" class="uk-button uk-button-link uk-text-danger" uk-icon="close">
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-body table-responsive p-0" v-else>Нет счетов</div>
-                    <div class="uk-card-footer"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="addNew"  uk-modal  class="uk-modal-container" aria-labelledby="addNewLabel" aria-hidden="true">
-            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
-              <button class="uk-modal-close-default" type="button" uk-close></button>
-                <div class="modal-content">
-                    <div class="uk-modal-header">
-                        <h5 v-show="!editMode" class="modal-title" id="addNewLabel">
-                            Новый счет
-                        </h5>
-                        <h5 v-show="editMode" class="modal-title" id="addNewLabel" >
-                            Редактировать счет
-                        </h5>
-                    </div>
-
-                    <form @submit.prevent="editMode ? updateInvoice() : createInvoice()" >
-                      <div class="uk-modal-body">
-                        <div class="uk-margin  uk-flex uk-flex-left uk-flex-middle">
-                            <label for="">Исходящий счет № </label>
-                            <input
-                                v-model="form.invoice_number"
-                                type="text"
-                                name="invoice_number"
-                                placeholder="Number"
-                                class="uk-input uk-width-1-6 uk-margin-small-left uk-margin-medium-right"
-                                :class="{
-                                    'uk-text-danger': form.errors.has('invoice_number')
-                                }"
-                            
-                            />
-                            <has-error
-                                :form="form"
-                                field="invoice_number"
-                            ></has-error>
-                        
-                            <label for="">от</label>
-                            <date-picker 
-                                v-model="form.date" 
-                                name="date"
-                                input-class="uk-input uk-margin-small-left" 
-                                :class="{
-                                    'is-invalid': form.errors.has('date')
-                                }"  
-                                type="date"
-                                :format = dateFormat
-                                @change="setDate()"
-                            >
-                            </date-picker>
-                            <has-error
-                                :form="form"
-                                field="date"
-                            ></has-error>
-                        </div>
-
-                        <div class="uk-margin uk-flex uk-flex-between uk-flex-middle">
-                            <label for="">Клиент</label>
-                            <select
-                                v-model="form.customer_id"
-                                type="text"
-                                name="customer_id"
-                                placeholder="Customer"
-                                class="uk-select uk-width-3-4"
-                                :class="{
-                                    'is-invalid': form.errors.has('customer_id')
-                                }"
-                                @change="setCustomer()"
-                            >
-                                <option default disabled value="0">Выбрать</option>
-                                <option value="add">Добавить клиента</option>
-                                <option v-for="customer in company.customers" :key="customer.id" v-bind:value="customer.id" :selected="customer.id === company.customers">
-                                    {{customer.name}}
-                                </option>
-                            </select>
-                            <has-error
-                                :form="form"
-                                field="customers"
-                            ></has-error>
-                            
-                        </div>
-                        <table class="uk-table uk-table-middle">
-                            <thead>
-                                <th>#</th>
-                                <th>№</th>
-                                <th>Название продукта</th>
-                                <th>Цена</th>
-                                <th>Количество</th>
-                                <th>НДС</th>
-                                <th>Сумма</th>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(invoice_product, k) in form.invoice_products" :key="k">
-                                    <td>
-                                        <span class="uk-text-danger" uk-icon="icon: trash" @click="deleteRow(k, invoice_product)"></span>
-                                    </td>
-                                    <td>
-                                        {{ invoice_product.product_no }}
-                                    </td>
-                                    <td>
-                                        <select name="product_id" class="uk-select" v-model="invoice_product.product_id" @change="setProduct(invoice_product)">
-                                            <option default disabled value="0">Выбрать</option>
-                                            <option value="add">Добавить продукт</option>
-                                            <option v-for="product in company.products" :key="product.id" :value="product.id" :selected="product.id === company.products">
-                                                {{ product.title }}
-                                            </option>
-                                            <option value="selectProduct">Список продуктов</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input class="uk-input" name="product_price" type="number" min="0" step=".01" v-model="invoice_product.product_price" @change="calculateLineTotal(invoice_product)"
-                                        />
-                                    </td>
-                                    <td>
-                                        <input class="uk-input" name="product_qty" type="number" min="0" step="1" v-model="invoice_product.product_qty" @change="calculateLineTotal(invoice_product)"
-                                        />
-                                    </td>
-                                    <td>
-                                        <select name="product_tax" v-model="invoice_product.product_tax" class="uk-select uk-width-1-1" @change="calculateTotal(invoice_product)" :class="{
-                                                'is-invalid': form.errors.has('product_tax')
-                                            }">
-                                            <option value="0">Без НДС</option>
-                                            <option value="10">10%</option>
-                                            <option default selected  value="20">20%</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input class="uk-input" name="product_total" type="number" min="0" step=".01" v-model="invoice_product.line_total" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="uk-margin">
-                            <a class="uk-button uk-button-primary" @click="addNewRow"><span uk-icon="icon: plus"></span>Add row</a>
-                        </div>   
-                        <div class="uk-flex uk-flex-column uk-flex-bottom">
-                            <div class="uk-margin">
-                                Итого: {{ form.invoice_subtotal | currency }}    
-                            </div>   
-                            <div class="uk-margin">
-                                НДС сверху: {{ form.invoice_tax | currency }}    
-                            </div>
-                            <div class="uk-margin">
-                                Всего к оплате: {{ form.invoice_total | currency }}    
-                            </div>  
-                        </div>                     
-      
-                      </div>
-                      <div class="uk-modal-footer">
-                          <button
-                              type="button"
-                              class="uk-button uk-button-danger"
-                              data-dismiss="modal"
-                          >
-                              Close
-                          </button>
-                          <button
-                              v-show="editMode"
-                              type="submit"
-                              class="uk-button uk-button-primary"
-                          >
-                              Update
-                          </button>
-                          <button
-                              v-show="!editMode"
-                              type="submit"
-                              class="uk-button uk-button-primary"
-                          >
-                              Create
-                          </button>
-                      </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div id="addCustomer" uk-modal  class="uk-modal-container" >
-            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
-                <button class="uk-modal-close-default" type="button" @click="closeaddCustomer()" uk-close></button>
-                <div class="modal-content">
-                    <div class="uk-modal-header">
-                        <h5 class="modal-title" id="addNewLabel">
-                            Создать клиента
-                        </h5>
-                    </div>
-                        <form >
-                            <div class="uk-margin">
-                                <input type="text" name="customer_inn" v-model="customer_inn" class="uk-input" placeholder="Введите ИНН для поиска" @change="loadCustomer()">
-                                <div class="uk-margin">
-                                    <span v-if="customer_exist == true" class="uk-text-success">Клиент с таким ИНН уже существует</span>
-                                    <span v-if="customer_inn_error == true" class="uk-text-danger">Введите корректный ИНН</span>
+                                <div>
+                                    <button
+                                        class="uk-button uk-button-primary"
+                                        type="button"
+                                        uk-toggle="target: #addNew"
+                                        @click="getInvoiceNumber()"
+                                    >
+                                        Добавить счет
+                                    </button>
                                 </div>
                             </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="customer_name" placeholder="Название организации" readonly>
+
+                            <div class="card-body table-responsive p-0" v-if="company.invoices != 0">
+                                <table class="uk-table" style="text-align: center">
+                                    <tbody>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Дата</th>
+                                            <th>Клиент</th>
+                                            <th>Сумма</th>
+                                            <th>Оплачен</th>
+                                            <th>Акт</th>
+                                            <th>УПД</th>
+                                            <th>Товарная накладная</th>
+                                            <th>Счет-фактура</th>
+                                        </tr>
+
+                                        <tr v-for="invoice in company.invoices" :key="invoice.id">
+                                            <td v-if="invoice.number != null">
+                                                <router-link :key="company.id" :to="{ name: 'showInvoice', params: { companyID: company.id, invoiceID:invoice.id  }}" >{{ invoice.number.invoice_number }}</router-link>
+                                            </td>
+                                            <td v-else>Ошибка!</td>
+                                            <td>{{ moment(invoice.date).locale('ru').format('LL') }}</td>
+                                        
+                                            <td v-if="invoice.customer != 0">
+                                                {{ invoice.customer.name }}
+                                            </td>
+                                            <td v-else>
+                                            Ошибка
+                                            </td>
+                                            <td>{{ invoice.invoice_total | currency }}</td>
+                                            <td v-if="invoice.paid_status == 1 " class="uk-text-success uk-text-uppercase">Оплачен</td>
+                                            <td v-else><button class="uk-button uk-button-link uk-text-danger" @click="openChangePaidStatusModal(invoice.id)">Не оплачен</button></td>
+                                            <td v-if="invoice.acceptance_certificate != null">
+                                                <router-link :key="company.id" :to="{ name: 'ShowAcceptanceCertificate', params: { userID:userID, companyID: companyID, acceptance_certificateID:invoice.acceptance_certificate.id  }}" >{{ invoice.acceptance_certificate.number }}</router-link>
+                                            </td>
+                                            <td v-else>
+                                                <button class="uk-button uk-button-link" @click="openCreateSertificateModal(invoice.id)">Добавить</button>
+                                            </td>
+                                            <td v-if="invoice.packing_list_id != null">
+                                                {{ invoice.packing_list_id }}
+                                            </td>
+                                            <td v-else>
+                                                <a href="" class="uk-button uk-button-link">Добавить</a>
+                                            </td>
+                                            <td v-if="invoice.packing_list_id != null">
+                                                {{ invoice.packing_list_id }}
+                                            </td>
+                                            <td v-else>
+                                                <a href="" class="uk-button uk-button-link">Добавить</a>
+                                            </td>
+                                            <td v-if="invoice.vat_invoice_id != null">
+                                                {{ invoice.vat_invoice_id }}
+                                            </td>
+                                            <td v-else>
+                                                <a href="" class="uk-button uk-button-link">Добавить</a>
+                                            </td>
+                                            <td>
+                                                <a href="#" data-id="invoice.id" @click="editModalWindow(invoice)">
+                                                    <span uk-icon="pencil"></span>
+                                                </a>
+                                                <span>|</span>
+                                                <button @click="deleteInvoice(invoice.id)" class="uk-button uk-button-link uk-text-danger" uk-icon="close">
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="customer_kpp" placeholder="КПП организации" readonly>
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="customer_legal" placeholder="Юридический адрес организации" readonly> 
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="customer_director" placeholder="Директор оганизации" readonly>
-                            </div>
-                            <h5>Банковские реквизиты</h5>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="customer_bank_rs" placeholder="Расчетный счет">
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="customer_bank_bic" placeholder="БИК банка" @change="loadBank()">
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="customer_bank_ks" placeholder="Кор. счет">
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="customer_bank_name" placeholder="Наименование банка">
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="customer_bank_legal" placeholder="Адрес банка">
-                            </div>
-                        </form>
-                    
-                    <div class="uk-modal-footer">
-                          <button
-                              type="button"
-                              class="uk-button uk-button-danger"
-                              data-dismiss="modal"
-                              @click="closeaddCustomer()"
-                          >
-                              Close
-                          </button>
-                      
-                          <button
-                              type="submit"
-                              class="uk-button uk-button-primary"
-                              @click="createCustomer()"
-                              v-show="!customer_exist"
-                          >
-                              Create
-                          </button>
-                      </div>
-                </div>
-                
-            </div>
-        </div>
-        <div id="changePaidStatus" uk-modal  class="uk-modal-container" >
-            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
-              <button class="uk-modal-close-default" type="button" @click="closePaidStatus()" uk-close></button>
-                <div class="modal-content">
-                    <div class="uk-modal-header">
-                        <h5 class="modal-title" id="addNewLabel">
-                           Счет № {{ invoice_number }}
-                        </h5>
+                            <div class="card-body table-responsive p-0" v-else>Нет счетов</div>
+                            <div class="uk-card-footer"></div>
+                        </div>
                     </div>
-                        <form >
-                            <div class="uk-margin">
-                                <label for="">Дата оплаты</label>
+                </div>
+            </div>
+
+            <div id="addNew"  uk-modal  class="uk-modal-container" aria-labelledby="addNewLabel" aria-hidden="true">
+                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                    <div class="modal-content">
+                        <div class="uk-modal-header">
+                            <h5 v-show="!editMode" class="modal-title" id="addNewLabel">
+                                Новый счет
+                            </h5>
+                            <h5 v-show="editMode" class="modal-title" id="addNewLabel" >
+                                Редактировать счет
+                            </h5>
+                        </div>
+
+                        <form @submit.prevent="editMode ? updateInvoice() : createInvoice()" >
+                        <div class="uk-modal-body">
+                            <div class="uk-margin  uk-flex uk-flex-left uk-flex-middle">
+                                <label for="">Исходящий счет № </label>
+                                <input
+                                    v-model="form.invoice_number"
+                                    type="text"
+                                    name="invoice_number"
+                                    placeholder="Number"
+                                    class="uk-input uk-width-1-6 uk-margin-small-left uk-margin-medium-right"
+                                    :class="{
+                                        'uk-text-danger': form.errors.has('invoice_number')
+                                    }"
+                                
+                                />
+                                <has-error
+                                    :form="form"
+                                    field="invoice_number"
+                                ></has-error>
+                            
+                                <label for="">от</label>
                                 <date-picker 
                                     v-model="form.date" 
                                     name="date"
@@ -364,100 +145,376 @@
                                     @change="setDate()"
                                 >
                                 </date-picker>
+                                <has-error
+                                    :form="form"
+                                    field="date"
+                                ></has-error>
                             </div>
+
+                            <div class="uk-margin uk-flex uk-flex-between uk-flex-middle">
+                                <label for="">Клиент</label>
+                                <select
+                                    v-model="form.customer_id"
+                                    type="text"
+                                    name="customer_id"
+                                    placeholder="Customer"
+                                    class="uk-select uk-width-3-4"
+                                    :class="{
+                                        'is-invalid': form.errors.has('customer_id')
+                                    }"
+                                    @change="setCustomer()"
+                                >
+                                    <option default disabled value="0">Выбрать</option>
+                                    <option value="add">Добавить клиента</option>
+                                    <option v-for="customer in company.customers" :key="customer.id" v-bind:value="customer.id" :selected="customer.id === company.customers">
+                                        {{customer.name}}
+                                    </option>
+                                </select>
+                                <has-error
+                                    :form="form"
+                                    field="customers"
+                                ></has-error>
+                                
+                            </div>
+                            <table class="uk-table uk-table-middle">
+                                <thead>
+                                    <th>#</th>
+                                    <th>№</th>
+                                    <th>Название продукта</th>
+                                    <th>Цена</th>
+                                    <th>Количество</th>
+                                    <th>НДС</th>
+                                    <th>Сумма</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(invoice_product, k) in form.invoice_products" :key="k">
+                                        <td>
+                                            <span class="uk-text-danger" uk-icon="icon: trash" @click="deleteRow(k, invoice_product)"></span>
+                                        </td>
+                                        <td>
+                                            {{ invoice_product.product_no }}
+                                        </td>
+                                        <td>
+                                            <select name="product_id" class="uk-select" v-model="invoice_product.product_id" @change="setProduct(invoice_product)">
+                                                <option default disabled value="0">Выбрать</option>
+                                                <option value="add">Добавить продукт</option>
+                                                <option v-for="product in company.products" :key="product.id" :value="product.id" :selected="product.id === company.products">
+                                                    {{ product.title }}
+                                                </option>
+                                                <option value="selectProduct">Список продуктов</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input class="uk-input" name="product_price" type="number" min="0" step=".01" v-model="invoice_product.product_price" @change="calculateLineTotal(invoice_product)"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input class="uk-input" name="product_qty" type="number" min="0" step="1" v-model="invoice_product.product_qty" @change="calculateLineTotal(invoice_product)"
+                                            />
+                                        </td>
+                                        <td>
+                                            <select name="product_tax" v-model="invoice_product.product_tax" class="uk-select uk-width-1-1" @change="calculateTotal(invoice_product)" :class="{
+                                                    'is-invalid': form.errors.has('product_tax')
+                                                }">
+                                                <option value="0">Без НДС</option>
+                                                <option value="10">10%</option>
+                                                <option default selected  value="20">20%</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input class="uk-input" name="product_total" type="number" min="0" step=".01" v-model="invoice_product.line_total" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             <div class="uk-margin">
-                                <label for="">Оплачен</label>
-                                <input type="checkbox" class="uk-checkbox">
-                            </div>
+                                <a class="uk-button uk-button-primary" @click="addNewRow"><span uk-icon="icon: plus"></span>Add row</a>
+                            </div>   
+                            <div class="uk-flex uk-flex-column uk-flex-bottom">
+                                <div class="uk-margin">
+                                    Итого: {{ form.invoice_subtotal | currency }}    
+                                </div>   
+                                <div class="uk-margin">
+                                    НДС сверху: {{ form.invoice_tax | currency }}    
+                                </div>
+                                <div class="uk-margin">
+                                    Всего к оплате: {{ form.invoice_total | currency }}    
+                                </div>  
+                            </div>                     
+        
+                        </div>
+                        <div class="uk-modal-footer">
+                            <button
+                                type="button"
+                                class="uk-button uk-button-danger"
+                                data-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button
+                                v-show="editMode"
+                                type="submit"
+                                class="uk-button uk-button-primary"
+                            >
+                                Update
+                            </button>
+                            <button
+                                v-show="!editMode"
+                                type="submit"
+                                class="uk-button uk-button-primary"
+                            >
+                                Create
+                            </button>
+                        </div>
                         </form>
-                    
-                    <div class="uk-modal-footer">
-                          <button
-                              type="button"
-                              class="uk-button uk-button-danger"
-                              data-dismiss="modal"
-                              @click="closePaidStatus()"
-                          >
-                              Close
-                          </button>
-                      
-                          <button
-                              type="submit"
-                              class="uk-button uk-button-primary"
-                              @click="setPaidStatus()"
-                          >
-                              Set
-                          </button>
-                      </div>
-                </div>
-                
-            </div>
-        </div>
-        <div id="addProduct" uk-modal  class="uk-modal-container" >
-            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
-              <button class="uk-modal-close-default" type="button" @click="closeAddProduct()" uk-close></button>
-                <div class="modal-content">
-                    <div class="uk-modal-header">
-                        <h5 class="modal-title" id="addNewLabel">
-                           Добавить продукт
-                        </h5>
                     </div>
-                        <form >
-                            <div class="uk-margin">
-                                <label for="">Наименование</label>
-                                <input type="text" class="uk-input" v-model="product_title">
-                            </div>
-                            <div class="uk-margin">
-                                <label for="">Категория</label>
-                                <select  class="uk-select" v-model="product_category">
-                                    <option default disabled value>Выбрать</option>
-                                    <option value="add">Добавить</option>
-                                    <option v-for="product_category in company.product_categories" :key="product_category.id" :value="product_category.id"  >{{ product_category.title }}</option>
-                                </select>
-                            </div>
-                            <div class="uk-margin">
-                                <label for="">Цена</label>
-                                <input type="number" min="0" step=".01" class="uk-input" v-model="product_price">
-                            </div>
-                            <div class="uk-margin">
-                                <label for="">НДС</label>
-                                <select name="" class="uk-select" v-model="product_tax">
-                                    <option value="20">20%</option>
-                                    <option value="18">18%</option>
-                                    <option value="10">10%</option>
-                                    <option value="0">Без НДС</option>
-                                </select>
-                            </div>
-                            <div class="uk-margin">
-                                <label for="">Ед. измерения</label>
-                                <select name="" class="uk-select" v-model="product_unit">
-                                    <option value="шт.">шт.</option>
-                                    <option value="ед.">ед.</option>
-                                    <option value="усл.">усл.</option>
-                                </select>
-                            </div>
-                        </form>
-                    
-                    <div class="uk-modal-footer">
-                          <button
-                              type="button"
-                              class="uk-button uk-button-danger"
-                              data-dismiss="modal"
-                              @click="closeAddProduct()"
-                          >
-                              Закрыть
-                          </button>
-                      
-                          <button
-                              type="submit"
-                              class="uk-button uk-button-primary"
-                              @click="createProduct()"
-                          >
-                              Создать
-                          </button>
-                      </div>
                 </div>
-                
+            </div>
+            <div id="addCustomer" uk-modal  class="uk-modal-container" >
+                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
+                    <button class="uk-modal-close-default" type="button" @click="closeaddCustomer()" uk-close></button>
+                    <div class="modal-content">
+                        <div class="uk-modal-header">
+                            <h5 class="modal-title" id="addNewLabel">
+                                Создать клиента
+                            </h5>
+                        </div>
+                            <form >
+                                <div class="uk-margin">
+                                    <input type="text" name="customer_inn" v-model="customer_inn" class="uk-input" placeholder="Введите ИНН для поиска" @change="loadCustomer()">
+                                    <div class="uk-margin">
+                                        <span v-if="customer_exist == true" class="uk-text-success">Клиент с таким ИНН уже существует</span>
+                                        <span v-if="customer_inn_error == true" class="uk-text-danger">Введите корректный ИНН</span>
+                                    </div>
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="customer_name" placeholder="Название организации" readonly>
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="customer_kpp" placeholder="КПП организации" readonly>
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="customer_legal" placeholder="Юридический адрес организации" readonly> 
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="customer_director" placeholder="Директор оганизации" readonly>
+                                </div>
+                                <h5>Банковские реквизиты</h5>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="customer_bank_rs" placeholder="Расчетный счет">
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="customer_bank_bic" placeholder="БИК банка" @change="loadBank()">
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="customer_bank_ks" placeholder="Кор. счет">
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="customer_bank_name" placeholder="Наименование банка">
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="customer_bank_legal" placeholder="Адрес банка">
+                                </div>
+                            </form>
+                        
+                        <div class="uk-modal-footer">
+                            <button
+                                type="button"
+                                class="uk-button uk-button-danger"
+                                data-dismiss="modal"
+                                @click="closeaddCustomer()"
+                            >
+                                Close
+                            </button>
+                        
+                            <button
+                                type="submit"
+                                class="uk-button uk-button-primary"
+                                @click="createCustomer()"
+                                v-show="!customer_exist"
+                            >
+                                Create
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div id="changePaidStatus" uk-modal  class="uk-modal-container" >
+                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
+                <button class="uk-modal-close-default" type="button" @click="closePaidStatus()" uk-close></button>
+                    <div class="modal-content">
+                        <div class="uk-modal-header">
+                            <h5 class="modal-title" id="addNewLabel">
+                            Счет № {{ paidStatusInvoiceNumer }}
+                            </h5>
+                        </div>
+                        <div class="uk-modal-body">
+                            <form >
+                                <div class="uk-margin">
+                                    <label for="">Оплачен</label>
+                                    <input type="checkbox" class="uk-checkbox" true-value="1"  false-value="0" v-model="paidStatusCheck">
+                                </div>
+                                <div class="uk-margin" v-show="paidStatusCheck == 1">
+                                    <label for="">Дата оплаты</label>
+                                    <date-picker 
+                                        v-model="paidStatusDate" 
+                                        name="date"
+                                        input-class="uk-input uk-margin-small-left" 
+                                        type="date"
+                                        :format = dateFormat
+                                        @change="setPaidDate()"
+                                    >
+                                    </date-picker>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="uk-modal-footer">
+                            <button
+                                type="button"
+                                class="uk-button uk-button-danger"
+                                data-dismiss="modal"
+                                @click="closePaidStatus()"
+                            >
+                                Close
+                            </button>
+                        
+                            <button
+                                type="submit"
+                                class="uk-button uk-button-primary"
+                                @click="changePaidStatus()"
+                            >
+                                Set
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div id="addProduct" uk-modal  class="uk-modal-container" >
+                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
+                <button class="uk-modal-close-default" type="button" @click="closeAddProduct()" uk-close></button>
+                    <div class="modal-content">
+                        <div class="uk-modal-header">
+                            <h5 class="modal-title" id="addNewLabel">
+                            Добавить продукт
+                            </h5>
+                        </div>
+                            <form >
+                                <div class="uk-margin">
+                                    <label for="">Наименование</label>
+                                    <input type="text" class="uk-input" v-model="product_title">
+                                </div>
+                                <div class="uk-margin">
+                                    <label for="">Категория</label>
+                                    <select  class="uk-select" v-model="product_category">
+                                        <option default disabled value>Выбрать</option>
+                                        <option value="add">Добавить</option>
+                                        <option v-for="product_category in company.product_categories" :key="product_category.id" :value="product_category.id"  >{{ product_category.title }}</option>
+                                    </select>
+                                </div>
+                                <div class="uk-margin">
+                                    <label for="">Цена</label>
+                                    <input type="number" min="0" step=".01" class="uk-input" v-model="product_price">
+                                </div>
+                                <div class="uk-margin">
+                                    <label for="">НДС</label>
+                                    <select name="" class="uk-select" v-model="product_tax">
+                                        <option value="20">20%</option>
+                                        <option value="18">18%</option>
+                                        <option value="10">10%</option>
+                                        <option value="0">Без НДС</option>
+                                    </select>
+                                </div>
+                                <div class="uk-margin">
+                                    <label for="">Ед. измерения</label>
+                                    <select name="" class="uk-select" v-model="product_unit">
+                                        <option value="шт.">шт.</option>
+                                        <option value="ед.">ед.</option>
+                                        <option value="усл.">усл.</option>
+                                    </select>
+                                </div>
+                            </form>
+                        
+                        <div class="uk-modal-footer">
+                            <button
+                                type="button"
+                                class="uk-button uk-button-danger"
+                                data-dismiss="modal"
+                                @click="closeAddProduct()"
+                            >
+                                Закрыть
+                            </button>
+                        
+                            <button
+                                type="submit"
+                                class="uk-button uk-button-primary"
+                                @click="createProduct()"
+                            >
+                                Создать
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div id="createSertificate" uk-modal  class="uk-modal-container" >
+                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
+                <button class="uk-modal-close-default" type="button" @click="closeCreateSertificateModal()" uk-close></button>
+                    <div class="modal-content">
+                        <div class="uk-modal-header">
+                            <h3 class="modal-title" id="addNewLabel">
+                            Добавить акт
+                            </h3>
+                        </div>
+                        <div class="uk-modal-body">
+                            <form >
+                                <div class="uk-flex uk-flex-middle">
+                                    <div class="uk-margin uk-flex uk-flex-middle">
+                                        <label>Номер</label>
+                                        <input type="text" class="uk-input uk-margin-small-left uk-margin-small-right" v-model="certificateNumber">
+                                    </div>
+                                    <div class="uk-margin uk-margin-remove-top uk-flex uk-flex-middle">
+                                        <label>от</label>
+                                        <date-picker 
+                                            v-model="certificateDate" 
+                                            name="date"
+                                            input-class="uk-input uk-margin-small-left" 
+                                            type="date"
+                                            @change="setCertificateDate()"
+                                            :format = dateFormat
+                                        >
+                                        </date-picker>
+                                    </div>
+                                </div>
+                                <div class="uk-margin">
+                                    <label>Основание</label>
+                                    <input type="text" class="uk-input" v-model="certificateBasis">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="uk-modal-footer">
+                            <button
+                                type="button"
+                                class="uk-button uk-button-danger"
+                                data-dismiss="modal"
+                                @click="closeCreateSertificateModal()"
+                            >
+                                Закрыть
+                            </button>
+                        
+                            <button
+                                type="submit"
+                                class="uk-button uk-button-primary"
+                                @click="createAcceptanceCertificate()"
+                            >
+                                Создать
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -511,12 +568,24 @@ export default {
             customer_bank_ks: '',
             customer_bank_legal: '',
             invoice_product_id: '',
+            invoiceID: '',
             invoice_number: '',
             product_title: '',
             product_category: 1,
             product_tax: '',
             product_price: '',
             product_unit: '',
+            certificateNumber: '',
+            certificateDate: '',
+            certificateBasis: '',
+            certificateCustomerID: '',
+            certificateSubtotal: '',
+            certificateTax: '',
+            certificateTotal: '',
+            paidStatusInvoiceNumer: '',
+            paidStatusDate: '',
+            paidStatusCheck: ''
+
         };
         
     },
@@ -556,7 +625,7 @@ export default {
             UIkit.modal("#addNew").show();
         },
         setDate(){
-            if(editMode = false){
+            if(editMode == false){
                 this.form.date = new Date()
             } else {
                 
@@ -702,7 +771,6 @@ export default {
                 UIkit.modal("#addNew").show();
             this.$Progress.finish();
         },
-        
         getProductPrice(invoice_product) {
                 let id = invoice_product.product_id
                 
@@ -892,71 +960,111 @@ export default {
             UIkit.modal("#addCustomer").hide();
             UIkit.modal("#addNew").show();
         },
-        changePaidStatus(id) {
+        openChangePaidStatusModal(id) {
             let invoices = this.company.invoices
-            
-            for(let i = 0; i < invoices.length; i++) {
-                if(invoices[i].id == id) {
-                        let paid_status = invoices[i].paid  
-                        paid_status = 1
-                        const formData = new FormData()
-                        formData.append('id', id)
-                        formData.append('paid', paid_status)
-                        axios
-                            .put("api/invoice/" + id, formData)
-                            .then((res) => {
-                                if(res.status === 200) {
-                                    this.loadCompany();
-                                    console.log(res.data);
-                                }
-                            })
-                        break;
-                    }
-            }
+            const index = invoices.findIndex(invoice => invoice.id === id)
+            this.paidStatusInvoiceNumer = invoices[index].number.invoice_number
+            this.invoiceID = invoices[index].id
+            let date
+            date = new Date()
+            this.paidStatusDate = date
 
+            UIkit.modal("#changePaidStatus").show();
+        },
+        setPaidDate() {
+            this.dateFormat = moment(this.paidStatusDate).locale('ru').format('LL')
+        },
+        changePaidStatus() {
+            let date
+            if(this.paidStatusCheck == 1) {
+                date = this.paidStatusDate
+            }
+            const formData = new FormData()
+            formData.append('paid_date', date)
+            formData.append('paid_status', this.paidStatusCheck)
+            axios
+                .post('/api/user/' + this.userID + '/company/' + this.companyID + '/invoice/' + this.invoiceID, {
+                    paid_date: date,
+                    paid_status: this.paidStatusCheck,
+                    _method: "patch"
+                } )
+                .then((res) => {
+                    if(res.status === 200) {
+                        this.loadCompany();
+                        UIkit.modal("#changePaidStatus").hide();
+                        console.log(res.data);
+                    }
+                })
         },
         closePaidStatus() {
             UIkit.modal("#changePaidStatus").hide();
         },
-        createAcceptanceCertificate(id) {
-            let invoices = this.company.invoices
+        openCreateSertificateModal(id)  {
+            let number, date, basis, invoiceNumber, invoiceDate
+            let certificates = this.company.acceptance_certificates
             
-            for(let i = 0; i < invoices.length; i++) {
-                if(invoices[i].id == id) {
-                    let customer_id = invoices[i].customer.id
-                    let number
-                    if (this.company.acceptance_certificates.length != undefined && this.company.acceptance_certificates.length) {
-                        for(let i = 0; i < this.company.acceptance_certificates.length; i++){
-                            number = this.company.acceptance_certificates[i].number
-                        }
-                        number += 1
-                    } else {
-                        number = 1
-                    }
-                    
-                    let subtotal = invoices[i].invoice_subtotal
-                    let tax = invoices[i].invoice_tax
-                    let total = invoices[i].invoice_total
-                    const formData = new FormData()
-                    formData.append('invoice_id', id)
-                    formData.append('number', number)
-                    formData.append('date', new Date())
-                    formData.append('company_id', this.companyID)
-                    formData.append('user_id', this.userID)
-                    formData.append('customer_id', customer_id)
-                    formData.append('subtotal', subtotal)
-                    formData.append('tax', tax)
-                    formData.append('total', total)
-                    axios
-                        .post('/api/user/' + this.userID + '/company/' + this.companyID + '/acceptance_certificate', formData)
-                        .then((res) => {
-                                if(res.status === 200) {
-                                    this.loadCompany();
-                                }
-                            })
-
+            if (certificates.length != undefined && certificates.length) {
+                for(let i = 0; i < certificates.length; i++){
+                    number = certificates[i].number
                 }
+                number += 1
+            } else {
+                number = 1
             }
+            this.certificateNumber = number
+
+            date = new Date()
+            this.certificateDate = date
+            
+            let invoices = this.company.invoices
+            const index = invoices.findIndex(invoice => invoice.id === id)
+            invoiceNumber = invoices[index].number.invoice_number
+            invoiceDate = invoices[index].date
+
+            this.certificateCustomerID = invoices[index].customer_id
+            this.certificateSubtotal = invoices[index].invoice_subtotal
+            this.certificateTax = invoices[index].invoice_tax
+            this.certificateTotal = invoices[index].invoice_total
+            this.invoiceID = invoices[index].id
+
+            basis = 'Счет № ' + invoiceNumber + ' от ' + moment(invoiceDate).locale('ru').format('LL') 
+            this.certificateBasis = basis
+
+            UIkit.modal("#createSertificate").show();
+        },
+        setCertificateDate(){
+            this.dateFormat = moment(this.certificateDate).locale('ru').format('LL')
+        },
+        createAcceptanceCertificate(id) {
+            this.$Progress.start();
+            const formData = new FormData()
+            formData.append('invoice_id', this.certificateInvoiceID)
+            formData.append('company_id', this.companyID)
+            formData.append('user_id', this.userID)
+            formData.append('number', this.certificateNumber)
+            formData.append('date', this.certificateDate)
+            formData.append('basis', this.certificateBasis)
+            formData.append('customer_id', this.certificateCustomerID)
+            formData.append('subtotal', this.certificateSubtotal)
+            formData.append('tax', this.certificateTax)
+            formData.append('total', this.certificateTotal)
+                        
+            axios
+                .post('/api/user/' + this.userID + '/company/' + this.companyID + '/acceptance_certificate', formData)
+                .then((res) => {
+                        if(res.status === 200) {
+                            this.loadCompany();
+                            UIkit.modal("#createSertificate").hide();
+                            this.$Progress.finish();
+                        }
+                    })
+            
+        },
+        closeCreateSertificateModal() {
+            this.certificateNumber = ''
+            this.certificateDate = '',
+            this.certificateBasis = '',
+            UIkit.modal("#createSertificate").hide();
         }
     },
     

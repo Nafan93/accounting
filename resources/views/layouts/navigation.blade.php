@@ -1,3 +1,4 @@
+@guest
 <nav class="uk-navbar-container" uk-navbar>
     <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
@@ -12,7 +13,7 @@
         </ul>
     </div>  
     @auth
-        <div class="uk-navbar-right">
+        <!--<div class="uk-navbar-right">
             <div class="uk-navbar-nav uk-padding-small">
                 <button class="uk-button uk-button-text" type="button">
                     {{ Auth::user()->name }}
@@ -29,8 +30,9 @@
                     @csrf
                 </form>
             </div>
-        </div>
+        </div>-->
     @endauth
 </nav>
+@endguest
 
 

@@ -17,9 +17,16 @@ class CreateAcceptanceCertificatesTable extends Migration
             $table->id();
             $table->integer('number');
             $table->string('date');
+            $table->string('basis');
             
-            $table->integer('company_id')->references('id')->on('companies')->nullable();
-            $table->integer('customer_id')->references('id')->on('customers')->nullable();
+            $table->bigInteger('invoice_id')->unsigned()->default(0);
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
+
+            $table->bigInteger('company_id')->unsigned()->default(0);
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+
+            $table->bigInteger('customer_id')->unsigned()->default(0);
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
 
             $table->bigInteger('user_id')->unsigned()->default(0);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -28,7 +35,7 @@ class CreateAcceptanceCertificatesTable extends Migration
             $table->float('tax', 8,2);
             $table->float('total', 8,2);
 
-            $table->integer('invoice_id')->references('id')->on('invoices')->nullable();
+            
             
             $table->timestamps();
         });

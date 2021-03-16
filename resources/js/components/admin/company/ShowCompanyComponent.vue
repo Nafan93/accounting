@@ -1,45 +1,46 @@
 <template>
-    <div class="uk-container">
-        <div class="uk-width-1-1">
-            <ul class="uk-breadcrumb">
-                <li><router-link  :to="{ name: 'Dashboard' }" ><span uk-icon="home"></span></router-link></li>
-                <li><span>{{ company.name }}</span></li>
-            </ul>
-            <h3 class="uk-card-title uk-margin-remove">{{ company.name }} </h3>
-            <app-navigation v-bind:user="userID" v-bind:company="company.id"></app-navigation>
-            <div uk-grid>
-              
-                <div class="uk-width-1-1">
-                    <div class="uk-card">
-                        <div class="uk-card-header uk-flex uk-flex-middle uk-flex-between">
-                            <h3 class="uk-card-title uk-margin-remove">Company info</h3>
-                        </div>
-  
-                        <div class="card-body table-responsive p-0">
-                            <table class="uk-table">
-                                <tbody>
-                                    <tr>
-                                        <td>Счета</td>
-                                        <td>Сумма</td>
-                                        <td>Оплачено</td>
-                                        <td>Не оплачено</td>
-                                    </tr>
+    <div>
+        <app-navigation v-bind:user="userID" v-bind:company="company.id"></app-navigation>
+        <div class="uk-container uk-margin-small-top">
+            <div class="uk-width-1-1">
+                <ul class="uk-breadcrumb">
+                    <li><router-link  :to="{ name: 'Dashboard' }" ><span uk-icon="home"></span></router-link></li>
+                    <li><span>{{ company.name }}</span></li>
+                </ul>
+                <h3 class="uk-card-title uk-margin-remove">{{ company.name }} </h3>
+                <div uk-grid>
+                
+                    <div class="uk-width-1-1">
+                        <div class="uk-card">
+                            <div class="uk-card-header uk-flex uk-flex-middle uk-flex-between">
+                                <h3 class="uk-card-title uk-margin-remove">Company info</h3>
+                            </div>
+    
+                            <div class="card-body table-responsive p-0">
+                                <table class="uk-table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Счета</td>
+                                            <td>Сумма</td>
+                                            <td>Оплачено</td>
+                                            <td>Не оплачено</td>
+                                        </tr>
 
-                                    <tr>
-                                        <td>{{ count_invoices }}</td>
-                                        <td>{{ summ_invoices | currency }}</td>
-                                        <td>{{ paid_summ_invoices | currency }}</td>
-                                        <td>{{ not_paid_summ_invoices | currency  }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        <tr>
+                                            <td>{{ count_invoices }}</td>
+                                            <td>{{ summ_invoices | currency }}</td>
+                                            <td>{{ paid_summ_invoices | currency }}</td>
+                                            <td>{{ not_paid_summ_invoices | currency  }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="uk-card-footer"></div>
                         </div>
-                        <div class="uk-card-footer"></div>
                     </div>
                 </div>
             </div>
         </div>
-        
     </div>
 </template>
 

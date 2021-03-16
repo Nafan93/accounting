@@ -1,9 +1,8 @@
 <template>
     <div>
-        <div class="uk-container">
-            <app-navigation v-bind:user="userID" v-bind:company="companyID"></app-navigation>
+        <app-navigation v-bind:user="userID" v-bind:company="companyID"></app-navigation>
+        <div class="uk-container uk-margin-small-top">
             <ul class="uk-breadcrumb">
-                <li><a href="#">Home</a></li>
                 <li v-if="invoice.company != undefined">
                     <router-link :key="companyID" :to="{ name: 'showCompany', params: { companyID: companyID }}" >{{ invoice.company.name }}</router-link>
                 </li>
@@ -183,6 +182,14 @@
                 </div>
                 <div class="uk-width-1-4">
                     <div class="uk-flex uk-flex-column">
+                        <div v-if="invoice.paid_status == 1">
+                            <span class="uk-text-success">Оплачен {{ moment(invoice.paid_date).locale('ru').format('LL') }}</span>
+                        </div>
+                        <div v-else>
+                            <span class="uk-text-danger">
+                                Не оплачен
+                            </span>
+                        </div>
                         <a href="">Редактировать</a>
                         <a href="" @click.prevent="print()">Печать</a>
                         <a href="" @click.prevent="createPDF">Скачать</a>
@@ -191,13 +198,70 @@
                             <router-link :key="invoice.company.id" :to="{ name: 'ShowAcceptanceCertificate', params: { userID:userID, companyID: companyID, acceptance_certificateID:invoice.acceptance_certificate.id  }}" >Акт № {{ invoice.acceptance_certificate.number }} от {{ moment(invoice.acceptance_certificate.date).locale('ru').format('LL') }}</router-link>
                         </div>
                         <div v-else>
-                            <a href="" class="uk-button uk-button-link" @click.prevent="createAcceptanceCertificate(invoice.id)">Добавить акт</a>
-                            </div>
+                            <a href="" class="" @click.prevent="openCreateSertificateModal(invoice.id)">Добавить акт</a>
+                        </div>
                         <a href="">Накладная</a>
                         <a href="">Счет-фактура</a>
                         <a href="">Удалить</a>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="createSertificate" uk-modal  class="uk-modal-container" >
+            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
+              <button class="uk-modal-close-default" type="button" @click="closeCreateSertificateModal()" uk-close></button>
+                <div class="modal-content">
+                    <div class="uk-modal-header">
+                        <h3 class="modal-title" id="addNewLabel">
+                           Добавить акт
+                        </h3>
+                    </div>
+                    <div class="uk-modal-body">
+                        <form >
+                            <div class="uk-flex uk-flex-middle">
+                                <div class="uk-margin uk-flex uk-flex-middle">
+                                    <label>Номер</label>
+                                    <input type="text" class="uk-input uk-margin-small-left uk-margin-small-right" v-model="certificateNumber">
+                                </div>
+                                <div class="uk-margin uk-margin-remove-top uk-flex uk-flex-middle">
+                                    <label>от</label>
+                                    <date-picker 
+                                        v-model="certificateDate" 
+                                        name="date"
+                                        input-class="uk-input uk-margin-small-left" 
+                                        type="date"
+                                        @change="setDate()"
+                                        :format = dateFormat
+                                    >
+                                    </date-picker>
+                                </div>
+                            </div>
+                            <div class="uk-margin">
+                                <label>Основание</label>
+                                <input type="text" class="uk-input" v-model="certificateBasis">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="uk-modal-footer">
+                          <button
+                              type="button"
+                              class="uk-button uk-button-danger"
+                              data-dismiss="modal"
+                              @click="closeCreateSertificateModal()"
+                          >
+                              Закрыть
+                          </button>
+                      
+                          <button
+                              type="submit"
+                              class="uk-button uk-button-primary"
+                              @click="createAcceptanceCertificate()"
+                          >
+                              Создать
+                          </button>
+                      </div>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -207,15 +271,22 @@
 import Navigation from "../../Navigation.vue";
 import html2pdf from 'html2pdf.js';
 import moment from "moment";
-import rubles from 'rubles'
-import numberToString from '../../../rubles.js'
+import rubles from 'rubles';
+import numberToString from '../../../rubles.js';
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+import 'vue2-datepicker/locale/ru';
 export default {
     props: ['invoiceID', 'userID', 'companyID'],
     data(){
         return {
             invoice: {},
             lines: {},
-            total: ''
+            total: '',
+            certificateNumber: '',
+            certificateDate: '',
+            certificateBasis: '',
+            dateFormat: moment().locale('ru').format('LL'), 
         }
     },
     methods: {
@@ -291,12 +362,68 @@ export default {
 
                 html2pdf().set(opt).from(element).save();
             },
+            
+            openCreateSertificateModal(id)  {
+                let number, date, basis
+                let certificates = this.invoice.company.acceptance_certificates
+                
+                if (certificates.length != undefined && certificates.length) {
+                    for(let i = 0; i < certificates.length; i++){
+                        number = certificates[i].number
+                    }
+                    number += 1
+                } else {
+                    number = 1
+                }
+                
+                this.certificateNumber = number
+
+                date = new Date()
+                this.certificateDate = date
+
+                basis = 'Счет № ' + this.invoice.number.invoice_number + ' от ' + moment(this.invoice.date).locale('ru').format('LL')
+                this.certificateBasis = basis
+
+                UIkit.modal("#createSertificate").show();
+            },
+            setDate(){
+                this.dateFormat = moment(this.certificateDate).locale('ru').format('LL')
+            },
+            createAcceptanceCertificate(id) {
+                const formData = new FormData()
+                formData.append('invoice_id', this.invoiceID)
+                formData.append('company_id', this.companyID)
+                formData.append('user_id', this.userID)
+                formData.append('number', this.certificateNumber)
+                formData.append('date', this.certificateDate)
+                formData.append('basis', this.certificateBasis)
+                formData.append('customer_id', this.invoice.customer_id)
+                formData.append('subtotal', this.invoice.invoice_subtotal)
+                formData.append('tax', this.invoice.invoice_tax)
+                formData.append('total', this.invoice.invoice_total)
+                axios
+                    .post('/api/user/' + this.userID + '/company/' + this.companyID + '/acceptance_certificate', formData)
+                    .then((res) => {
+                            if(res.status === 200) {
+                                this.loadInvoice();
+                                UIkit.modal("#createSertificate").hide();
+                            }
+                        })
+                
+            },
+            closeCreateSertificateModal() {
+                this.certificateNumber = ''
+                this.certificateDate = '',
+                this.certificateBasis = '',
+                UIkit.modal("#createSertificate").hide();
+            }
         },
     mounted() {
         this.loadInvoice();
     },
     components: {
         appNavigation: Navigation,
+        DatePicker,
     },
 }
 </script>

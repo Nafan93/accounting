@@ -1969,10 +1969,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['company', 'user'],
-  data: function data() {
-    return {};
+  methods: {
+    logout: function logout() {
+      axios.post('/logout').then(function () {
+        return location.href = '/';
+      });
+    }
   }
 });
 
@@ -1987,6 +2012,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DashboardNavigation_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DashboardNavigation.vue */ "./resources/js/components/admin/DashboardNavigation.vue");
 //
 //
 //
@@ -2119,6 +2145,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userID'],
   data: function data() {
@@ -2323,6 +2353,53 @@ __webpack_require__.r(__webpack_exports__);
       //custom events fire on
       _this6.loadCompany();
     });
+  },
+  components: {
+    dashNavigation: _DashboardNavigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/DashboardNavigation.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/DashboardNavigation.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
+  methods: {
+    logout: function logout() {
+      axios.post('/logout').then(function () {
+        return location.href = '/';
+      });
+    }
   }
 });
 
@@ -2375,6 +2452,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Navigation_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Navigation.vue */ "./resources/js/components/Navigation.vue");
 //
 //
 //
@@ -2442,6 +2520,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['companyID', 'userID'],
   data: function data() {
@@ -2467,6 +2547,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
+  components: {
+    appNavigation: _Navigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   mounted: function mounted() {
     this.loadCompany();
   }
@@ -2486,6 +2569,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Navigation_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Navigation.vue */ "./resources/js/components/Navigation.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -2974,6 +3061,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Navigation_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Navigation.vue */ "./resources/js/components/Navigation.vue");
+//
 //
 //
 //
@@ -3677,6 +3765,63 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3723,12 +3868,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       customer_bank_ks: '',
       customer_bank_legal: '',
       invoice_product_id: '',
+      invoiceID: '',
       invoice_number: '',
       product_title: '',
       product_category: 1,
       product_tax: '',
       product_price: '',
-      product_unit: ''
+      product_unit: '',
+      certificateNumber: '',
+      certificateDate: '',
+      certificateBasis: '',
+      certificateCustomerID: '',
+      certificateSubtotal: '',
+      certificateTax: '',
+      certificateTotal: '',
+      paidStatusInvoiceNumer: '',
+      paidStatusDate: '',
+      paidStatusCheck: ''
     };
   },
   methods: {
@@ -3760,7 +3916,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       UIkit.modal("#addNew").show();
     },
     setDate: function setDate() {
-      if (editMode = false) {
+      if (editMode == false) {
         this.form.date = new Date();
       } else {}
 
@@ -4164,72 +4320,112 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       UIkit.modal("#addCustomer").hide();
       UIkit.modal("#addNew").show();
     },
-    changePaidStatus: function changePaidStatus(id) {
+    openChangePaidStatusModal: function openChangePaidStatusModal(id) {
+      var invoices = this.company.invoices;
+      var index = invoices.findIndex(function (invoice) {
+        return invoice.id === id;
+      });
+      this.paidStatusInvoiceNumer = invoices[index].number.invoice_number;
+      this.invoiceID = invoices[index].id;
+      var date;
+      date = new Date();
+      this.paidStatusDate = date;
+      UIkit.modal("#changePaidStatus").show();
+    },
+    setPaidDate: function setPaidDate() {
+      this.dateFormat = moment__WEBPACK_IMPORTED_MODULE_4___default()(this.paidStatusDate).locale('ru').format('LL');
+    },
+    changePaidStatus: function changePaidStatus() {
       var _this8 = this;
 
-      var invoices = this.company.invoices;
+      var date;
 
-      for (var i = 0; i < invoices.length; i++) {
-        if (invoices[i].id == id) {
-          var paid_status = invoices[i].paid;
-          paid_status = 1;
-          var formData = new FormData();
-          formData.append('id', id);
-          formData.append('paid', paid_status);
-          axios.put("api/invoice/" + id, formData).then(function (res) {
-            if (res.status === 200) {
-              _this8.loadCompany();
-
-              console.log(res.data);
-            }
-          });
-          break;
-        }
+      if (this.paidStatusCheck == 1) {
+        date = this.paidStatusDate;
       }
+
+      var formData = new FormData();
+      formData.append('paid_date', date);
+      formData.append('paid_status', this.paidStatusCheck);
+      axios.post('/api/user/' + this.userID + '/company/' + this.companyID + '/invoice/' + this.invoiceID, {
+        paid_date: date,
+        paid_status: this.paidStatusCheck,
+        _method: "patch"
+      }).then(function (res) {
+        if (res.status === 200) {
+          _this8.loadCompany();
+
+          UIkit.modal("#changePaidStatus").hide();
+          console.log(res.data);
+        }
+      });
     },
     closePaidStatus: function closePaidStatus() {
       UIkit.modal("#changePaidStatus").hide();
     },
+    openCreateSertificateModal: function openCreateSertificateModal(id) {
+      var number, date, basis, invoiceNumber, invoiceDate;
+      var certificates = this.company.acceptance_certificates;
+
+      if (certificates.length != undefined && certificates.length) {
+        for (var i = 0; i < certificates.length; i++) {
+          number = certificates[i].number;
+        }
+
+        number += 1;
+      } else {
+        number = 1;
+      }
+
+      this.certificateNumber = number;
+      date = new Date();
+      this.certificateDate = date;
+      var invoices = this.company.invoices;
+      var index = invoices.findIndex(function (invoice) {
+        return invoice.id === id;
+      });
+      invoiceNumber = invoices[index].number.invoice_number;
+      invoiceDate = invoices[index].date;
+      this.certificateCustomerID = invoices[index].customer_id;
+      this.certificateSubtotal = invoices[index].invoice_subtotal;
+      this.certificateTax = invoices[index].invoice_tax;
+      this.certificateTotal = invoices[index].invoice_total;
+      this.invoiceID = invoices[index].id;
+      basis = 'Счет № ' + invoiceNumber + ' от ' + moment__WEBPACK_IMPORTED_MODULE_4___default()(invoiceDate).locale('ru').format('LL');
+      this.certificateBasis = basis;
+      UIkit.modal("#createSertificate").show();
+    },
+    setCertificateDate: function setCertificateDate() {
+      this.dateFormat = moment__WEBPACK_IMPORTED_MODULE_4___default()(this.certificateDate).locale('ru').format('LL');
+    },
     createAcceptanceCertificate: function createAcceptanceCertificate(id) {
       var _this9 = this;
 
-      var invoices = this.company.invoices;
+      this.$Progress.start();
+      var formData = new FormData();
+      formData.append('invoice_id', this.certificateInvoiceID);
+      formData.append('company_id', this.companyID);
+      formData.append('user_id', this.userID);
+      formData.append('number', this.certificateNumber);
+      formData.append('date', this.certificateDate);
+      formData.append('basis', this.certificateBasis);
+      formData.append('customer_id', this.certificateCustomerID);
+      formData.append('subtotal', this.certificateSubtotal);
+      formData.append('tax', this.certificateTax);
+      formData.append('total', this.certificateTotal);
+      axios.post('/api/user/' + this.userID + '/company/' + this.companyID + '/acceptance_certificate', formData).then(function (res) {
+        if (res.status === 200) {
+          _this9.loadCompany();
 
-      for (var i = 0; i < invoices.length; i++) {
-        if (invoices[i].id == id) {
-          var customer_id = invoices[i].customer.id;
-          var number = void 0;
+          UIkit.modal("#createSertificate").hide();
 
-          if (this.company.acceptance_certificates.length != undefined && this.company.acceptance_certificates.length) {
-            for (var _i = 0; _i < this.company.acceptance_certificates.length; _i++) {
-              number = this.company.acceptance_certificates[_i].number;
-            }
-
-            number += 1;
-          } else {
-            number = 1;
-          }
-
-          var subtotal = invoices[i].invoice_subtotal;
-          var tax = invoices[i].invoice_tax;
-          var total = invoices[i].invoice_total;
-          var formData = new FormData();
-          formData.append('invoice_id', id);
-          formData.append('number', number);
-          formData.append('date', new Date());
-          formData.append('company_id', this.companyID);
-          formData.append('user_id', this.userID);
-          formData.append('customer_id', customer_id);
-          formData.append('subtotal', subtotal);
-          formData.append('tax', tax);
-          formData.append('total', total);
-          axios.post('/api/user/' + this.userID + '/company/' + this.companyID + '/acceptance_certificate', formData).then(function (res) {
-            if (res.status === 200) {
-              _this9.loadCompany();
-            }
-          });
+          _this9.$Progress.finish();
         }
-      }
+      });
+    },
+    closeCreateSertificateModal: function closeCreateSertificateModal() {
+      this.certificateNumber = '';
+      this.certificateDate = '', this.certificateBasis = '', UIkit.modal("#createSertificate").hide();
     }
   },
   created: function created() {
@@ -4270,6 +4466,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rubles__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rubles__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _rubles_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../rubles.js */ "./resources/js/rubles.js");
 /* harmony import */ var _rubles_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_rubles_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue2-datepicker/index.css */ "./node_modules/vue2-datepicker/index.css");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var vue2_datepicker_locale_ru__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue2-datepicker/locale/ru */ "./node_modules/vue2-datepicker/locale/ru.js");
+/* harmony import */ var vue2_datepicker_locale_ru__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_locale_ru__WEBPACK_IMPORTED_MODULE_7__);
 //
 //
 //
@@ -4475,6 +4676,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 
@@ -4486,7 +4754,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       invoice: {},
       lines: {},
-      total: ''
+      total: '',
+      certificateNumber: '',
+      certificateDate: '',
+      certificateBasis: '',
+      dateFormat: moment__WEBPACK_IMPORTED_MODULE_2___default()().locale('ru').format('LL')
     };
   },
   methods: {
@@ -4570,13 +4842,64 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       html2pdf_js__WEBPACK_IMPORTED_MODULE_1___default()().set(opt).from(element).save();
+    },
+    openCreateSertificateModal: function openCreateSertificateModal(id) {
+      var number, date, basis;
+      var certificates = this.invoice.company.acceptance_certificates;
+
+      if (certificates.length != undefined && certificates.length) {
+        for (var i = 0; i < certificates.length; i++) {
+          number = certificates[i].number;
+        }
+
+        number += 1;
+      } else {
+        number = 1;
+      }
+
+      this.certificateNumber = number;
+      date = new Date();
+      this.certificateDate = date;
+      basis = 'Счет № ' + this.invoice.number.invoice_number + ' от ' + moment__WEBPACK_IMPORTED_MODULE_2___default()(this.invoice.date).locale('ru').format('LL');
+      this.certificateBasis = basis;
+      UIkit.modal("#createSertificate").show();
+    },
+    setDate: function setDate() {
+      this.dateFormat = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.certificateDate).locale('ru').format('LL');
+    },
+    createAcceptanceCertificate: function createAcceptanceCertificate(id) {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append('invoice_id', this.invoiceID);
+      formData.append('company_id', this.companyID);
+      formData.append('user_id', this.userID);
+      formData.append('number', this.certificateNumber);
+      formData.append('date', this.certificateDate);
+      formData.append('basis', this.certificateBasis);
+      formData.append('customer_id', this.invoice.customer_id);
+      formData.append('subtotal', this.invoice.invoice_subtotal);
+      formData.append('tax', this.invoice.invoice_tax);
+      formData.append('total', this.invoice.invoice_total);
+      axios.post('/api/user/' + this.userID + '/company/' + this.companyID + '/acceptance_certificate', formData).then(function (res) {
+        if (res.status === 200) {
+          _this2.loadInvoice();
+
+          UIkit.modal("#createSertificate").hide();
+        }
+      });
+    },
+    closeCreateSertificateModal: function closeCreateSertificateModal() {
+      this.certificateNumber = '';
+      this.certificateDate = '', this.certificateBasis = '', UIkit.modal("#createSertificate").hide();
     }
   },
   mounted: function mounted() {
     this.loadInvoice();
   },
   components: {
-    appNavigation: _Navigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    appNavigation: _Navigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_5__["default"]
   }
 });
 
@@ -83657,97 +83980,112 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c(
-      "button",
+      "div",
       {
-        staticClass: "uk-button uk-button-default uk-margin-small-right",
-        attrs: { type: "button", "uk-toggle": "target: #navigation" }
+        staticClass: "uk-navbar-container uk-navbar-transparent",
+        attrs: { "uk-navbar": "" }
       },
-      [_vm._v("Меню")]
-    ),
-    _vm._v(" "),
-    _c("div", { attrs: { id: "navigation", "uk-offcanvas": "" } }, [
-      _c("div", { staticClass: "uk-offcanvas-bar" }, [
-        _c("button", {
-          staticClass: "uk-offcanvas-close",
-          attrs: { type: "button", "uk-close": "" }
-        }),
+      [
+        _c("div", { staticClass: "uk-navbar-left" }, [
+          _c(
+            "a",
+            { staticClass: "uk-navbar-item uk-logo", attrs: { href: "#" } },
+            [_vm._v("Accounting")]
+          ),
+          _vm._v(" "),
+          _c("ul", { staticClass: "uk-navbar-nav" }, [
+            _c("li", [
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Продажи")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-navbar-dropdown" }, [
+                _c("ul", { staticClass: "uk-nav uk-navbar-dropdown-nav" }, [
+                  _c(
+                    "li",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          key: _vm.company,
+                          attrs: {
+                            to: {
+                              name: "Invoice",
+                              params: {
+                                companyID: _vm.company,
+                                userID: _vm.user
+                              }
+                            }
+                          }
+                        },
+                        [_vm._v("Счета")]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          key: _vm.company,
+                          attrs: {
+                            to: {
+                              name: "AcceptanceCertificate",
+                              params: { companyID: _vm.company }
+                            }
+                          }
+                        },
+                        [_vm._v("Акты")]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _vm._m(5)
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(6),
+            _vm._v(" "),
+            _vm._m(7),
+            _vm._v(" "),
+            _vm._m(8)
+          ])
+        ]),
         _vm._v(" "),
-        _c("ul", { attrs: { "uk-accordion": "" } }, [
-          _c("li", [
+        _c("div", { staticClass: "uk-navbar-right" }, [
+          _vm._m(9),
+          _vm._v(" "),
+          _c("div", { attrs: { "uk-dropdown": "mode: click" } }, [
             _c(
               "a",
-              { staticClass: "uk-accordion-title", attrs: { href: "#" } },
-              [_vm._v("Продажи")]
-            ),
-            _vm._v(" "),
-            _c(
-              "ul",
               {
-                staticClass: "uk-accordion-content uk-open",
-                staticStyle: { "list-style-type": "none" }
+                attrs: { href: "" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.logout()
+                  }
+                }
               },
-              [
-                _c(
-                  "li",
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        key: _vm.company,
-                        attrs: {
-                          to: {
-                            name: "Invoice",
-                            params: { companyID: _vm.company, userID: _vm.user }
-                          }
-                        }
-                      },
-                      [_vm._v("Счета")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        key: _vm.company,
-                        attrs: {
-                          to: {
-                            name: "AcceptanceCertificate",
-                            params: { companyID: _vm.company }
-                          }
-                        }
-                      },
-                      [_vm._v("Акты")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm._m(0),
-                _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _vm._m(3),
-                _vm._v(" "),
-                _vm._m(4),
-                _vm._v(" "),
-                _vm._m(5)
-              ]
+              [_vm._v("Выйти")]
             )
-          ]),
-          _vm._v(" "),
-          _vm._m(6),
-          _vm._v(" "),
-          _vm._m(7)
+          ])
         ])
-      ])
-    ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -83800,17 +84138,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", [
-      _c("a", { staticClass: "uk-accordion-title", attrs: { href: "#" } }, [
-        _vm._v("Покупки")
-      ]),
+      _c("a", { attrs: { href: "#" } }, [_vm._v("Покупки")]),
       _vm._v(" "),
-      _c(
-        "ul",
-        {
-          staticClass: "uk-accordion-content uk-open",
-          staticStyle: { "list-style-type": "none" }
-        },
-        [
+      _c("div", { staticClass: "uk-navbar-dropdown" }, [
+        _c("ul", { staticClass: "uk-nav uk-navbar-dropdown-nav" }, [
           _c("li", [_c("a", { attrs: { href: "" } }, [_vm._v("Счета")])]),
           _vm._v(" "),
           _c("li", [_c("a", { attrs: { href: "" } }, [_vm._v("Акты")])]),
@@ -83834,26 +84165,25 @@ var staticRenderFns = [
           _c("li", [_c("a", { attrs: { href: "" } }, [_vm._v("Заказы")])]),
           _vm._v(" "),
           _c("li", [_c("a", { attrs: { href: "" } }, [_vm._v("Договоры")])])
-        ]
-      )
+        ])
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Покупатели")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("li", [
-      _c("a", { staticClass: "uk-accordion-title", attrs: { href: "#" } }, [
-        _vm._v("Товары")
-      ]),
+      _c("a", { attrs: { href: "#" } }, [_vm._v("Товары")]),
       _vm._v(" "),
-      _c(
-        "ul",
-        {
-          staticClass: "uk-accordion-content uk-open",
-          staticStyle: { "list-style-type": "none" }
-        },
-        [
+      _c("div", { staticClass: "uk-navbar-dropdown" }, [
+        _c("ul", { staticClass: "uk-nav uk-navbar-dropdown-nav" }, [
           _c("li", [_c("a", { attrs: { href: "" } }, [_vm._v("Склад")])]),
           _vm._v(" "),
           _c("li", [_c("a", { attrs: { href: "" } }, [_vm._v("Прайс-листы")])]),
@@ -83861,7 +84191,19 @@ var staticRenderFns = [
           _c("li", [
             _c("a", { attrs: { href: "" } }, [_vm._v("Оборот товара")])
           ])
-        ]
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-navbar-nav uk-padding-small" }, [
+      _c(
+        "button",
+        { staticClass: "uk-button uk-button-text", attrs: { type: "button" } },
+        [_vm._v("\n                     userName\n                 ")]
       )
     ])
   }
@@ -83887,459 +84229,470 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-container" }, [
-    _c("div", { staticClass: "uk-width-1-1" }, [
-      _c("div", { staticClass: "uk-card" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body table-responsive p-0" }, [
-          _c("table", { staticClass: "uk-table" }, [
-            _c(
-              "tbody",
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _vm._l(_vm.user.companies, function(company) {
-                  return _c("tr", { key: company.id }, [
-                    _c(
-                      "td",
-                      [
+  return _c(
+    "div",
+    [
+      _c("dash-navigation", { attrs: { user: _vm.userID } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-container uk-margin-small-top" }, [
+        _c("div", { staticClass: "uk-width-1-1" }, [
+          _c("div", { staticClass: "uk-card" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body table-responsive p-0" }, [
+              _c("table", { staticClass: "uk-table" }, [
+                _c(
+                  "tbody",
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._l(_vm.user.companies, function(company) {
+                      return _c("tr", { key: company.id }, [
                         _c(
-                          "router-link",
-                          {
-                            key: company.id,
-                            attrs: {
-                              to: {
-                                name: "showCompany",
-                                params: {
-                                  companyID: company.id,
-                                  userID: _vm.user.id
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                key: company.id,
+                                attrs: {
+                                  to: {
+                                    name: "showCompany",
+                                    params: {
+                                      companyID: company.id,
+                                      userID: _vm.user.id
+                                    }
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(company.name))]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(company.director_name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(company.inn))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(company.kpp))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(company.legal_addres))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#", "data-id": "company.id" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editModalWindow(company)
                                 }
                               }
-                            }
-                          },
-                          [_vm._v(_vm._s(company.name))]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(company.director_name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(company.inn))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(company.kpp))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(company.legal_addres))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "#", "data-id": "company.id" },
-                          on: {
-                            click: function($event) {
-                              return _vm.editModalWindow(company)
-                            }
-                          }
-                        },
-                        [_c("span", { attrs: { "uk-icon": "pencil" } })]
-                      ),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("|")]),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteCompany(company.id)
-                            }
-                          }
-                        },
-                        [_c("span", { attrs: { "uk-icon": "close" } })]
-                      )
-                    ])
-                  ])
-                })
-              ],
-              2
-            )
+                            },
+                            [_c("span", { attrs: { "uk-icon": "pencil" } })]
+                          ),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("|")]),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteCompany(company.id)
+                                }
+                              }
+                            },
+                            [_c("span", { attrs: { "uk-icon": "close" } })]
+                          )
+                        ])
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-card-footer" })
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "uk-card-footer" })
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        attrs: {
-          id: "addNew",
-          "uk-modal": "",
-          "aria-labelledby": "addNewLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
         _c(
           "div",
           {
-            staticClass:
-              "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
-            attrs: { "uk-overflow-auto": "" }
+            attrs: {
+              id: "addNew",
+              "uk-modal": "",
+              "aria-labelledby": "addNewLabel",
+              "aria-hidden": "true"
+            }
           },
           [
-            _c("button", {
-              staticClass: "uk-modal-close-default",
-              attrs: { type: "button", "uk-close": "" },
-              on: {
-                click: function($event) {
-                  return _vm.closeCreateCompany()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("form", [
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.company_inn,
-                        expression: "company_inn"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      name: "company_inn",
-                      placeholder: "Введите ИНН для поиска"
-                    },
-                    domProps: { value: _vm.company_inn },
-                    on: {
-                      change: function($event) {
-                        return _vm.setCompany()
-                      },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.company_inn = $event.target.value
-                      }
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
+                attrs: { "uk-overflow-auto": "" }
+              },
+              [
+                _c("button", {
+                  staticClass: "uk-modal-close-default",
+                  attrs: { type: "button", "uk-close": "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeCreateCompany()
                     }
-                  }),
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(2),
                   _vm._v(" "),
-                  _c("div", { staticClass: "uk-margin" }, [
-                    _vm.company_exist == true
-                      ? _c("span", { staticClass: "uk-text-success" }, [
-                          _vm._v("Клиент с таким ИНН уже существует")
-                        ])
-                      : _vm._e(),
+                  _c("form", [
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_inn,
+                            expression: "company_inn"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          name: "company_inn",
+                          placeholder: "Введите ИНН для поиска"
+                        },
+                        domProps: { value: _vm.company_inn },
+                        on: {
+                          change: function($event) {
+                            return _vm.setCompany()
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.company_inn = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _vm.company_exist == true
+                          ? _c("span", { staticClass: "uk-text-success" }, [
+                              _vm._v("Клиент с таким ИНН уже существует")
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.company_inn_error == true
+                          ? _c("span", { staticClass: "uk-text-danger" }, [
+                              _vm._v("Введите корректный ИНН")
+                            ])
+                          : _vm._e()
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _vm.company_inn_error == true
-                      ? _c("span", { staticClass: "uk-text-danger" }, [
-                          _vm._v("Введите корректный ИНН")
-                        ])
-                      : _vm._e()
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.company_name,
-                        expression: "company_name"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Название организации",
-                      readonly: ""
-                    },
-                    domProps: { value: _vm.company_name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_name,
+                            expression: "company_name"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Название организации",
+                          readonly: ""
+                        },
+                        domProps: { value: _vm.company_name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.company_name = $event.target.value
+                          }
                         }
-                        _vm.company_name = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.company_kpp,
-                        expression: "company_kpp"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      placeholder: "КПП организации",
-                      readonly: ""
-                    },
-                    domProps: { value: _vm.company_kpp },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_kpp,
+                            expression: "company_kpp"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          placeholder: "КПП организации",
+                          readonly: ""
+                        },
+                        domProps: { value: _vm.company_kpp },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.company_kpp = $event.target.value
+                          }
                         }
-                        _vm.company_kpp = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.company_legal,
-                        expression: "company_legal"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Юридический адрес организации",
-                      readonly: ""
-                    },
-                    domProps: { value: _vm.company_legal },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_legal,
+                            expression: "company_legal"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Юридический адрес организации",
+                          readonly: ""
+                        },
+                        domProps: { value: _vm.company_legal },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.company_legal = $event.target.value
+                          }
                         }
-                        _vm.company_legal = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.company_director,
-                        expression: "company_director"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Директор оганизации",
-                      readonly: ""
-                    },
-                    domProps: { value: _vm.company_director },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_director,
+                            expression: "company_director"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Директор оганизации",
+                          readonly: ""
+                        },
+                        domProps: { value: _vm.company_director },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.company_director = $event.target.value
+                          }
                         }
-                        _vm.company_director = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("h5", [_vm._v("Банковские реквизиты")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.company_bank_rs,
-                        expression: "company_bank_rs"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text", placeholder: "Расчетный счет" },
-                    domProps: { value: _vm.company_bank_rs },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v("Банковские реквизиты")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_bank_rs,
+                            expression: "company_bank_rs"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "text", placeholder: "Расчетный счет" },
+                        domProps: { value: _vm.company_bank_rs },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.company_bank_rs = $event.target.value
+                          }
                         }
-                        _vm.company_bank_rs = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_bank_bic,
+                            expression: "company_bank_bic"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "text", placeholder: "БИК банка" },
+                        domProps: { value: _vm.company_bank_bic },
+                        on: {
+                          change: function($event) {
+                            return _vm.setBank()
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.company_bank_bic = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_bank_ks,
+                            expression: "company_bank_ks"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "text", placeholder: "Кор. счет" },
+                        domProps: { value: _vm.company_bank_ks },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.company_bank_ks = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_bank_name,
+                            expression: "company_bank_name"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Наименование банка"
+                        },
+                        domProps: { value: _vm.company_bank_name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.company_bank_name = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.company_bank_legal,
+                            expression: "company_bank_legal"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "text", placeholder: "Адрес банка" },
+                        domProps: { value: _vm.company_bank_legal },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.company_bank_legal = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-modal-footer" }, [
+                    _c(
+                      "button",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.company_bank_bic,
-                        expression: "company_bank_bic"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text", placeholder: "БИК банка" },
-                    domProps: { value: _vm.company_bank_bic },
-                    on: {
-                      change: function($event) {
-                        return _vm.setBank()
+                        staticClass: "uk-button uk-button-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" },
+                        on: {
+                          click: function($event) {
+                            return _vm.closeaddcompany()
+                          }
+                        }
                       },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.company_bank_bic = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
+                      [
+                        _vm._v(
+                          "\n                            Close\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.company_bank_ks,
-                        expression: "company_bank_ks"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text", placeholder: "Кор. счет" },
-                    domProps: { value: _vm.company_bank_ks },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.company_exist,
+                            expression: "!company_exist"
+                          }
+                        ],
+                        staticClass: "uk-button uk-button-primary",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function($event) {
+                            return _vm.createCompany()
+                          }
                         }
-                        _vm.company_bank_ks = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.company_bank_name,
-                        expression: "company_bank_name"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text", placeholder: "Наименование банка" },
-                    domProps: { value: _vm.company_bank_name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.company_bank_name = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.company_bank_legal,
-                        expression: "company_bank_legal"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text", placeholder: "Адрес банка" },
-                    domProps: { value: _vm.company_bank_legal },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.company_bank_legal = $event.target.value
-                      }
-                    }
-                  })
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Create\n                        "
+                        )
+                      ]
+                    )
+                  ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "uk-modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "uk-button uk-button-danger",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.closeaddcompany()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Close\n                      "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: !_vm.company_exist,
-                        expression: "!company_exist"
-                      }
-                    ],
-                    staticClass: "uk-button uk-button-primary",
-                    attrs: { type: "submit" },
-                    on: {
-                      click: function($event) {
-                        return _vm.createCompany()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Create\n                      "
-                    )
-                  ]
-                )
-              ])
-            ])
+              ]
+            )
           ]
         )
-      ]
-    )
-  ])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -84363,7 +84716,7 @@ var staticRenderFns = [
             },
             [
               _vm._v(
-                "\n                        Создать компанию\n                    "
+                "\n                            Создать компанию\n                        "
               )
             ]
           )
@@ -84394,9 +84747,87 @@ var staticRenderFns = [
     return _c("div", { staticClass: "uk-modal-header" }, [
       _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
         _vm._v(
-          "\n                        Создать компанию\n                    "
+          "\n                            Создать компанию\n                        "
         )
       ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/DashboardNavigation.vue?vue&type=template&id=0b4045a6&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/DashboardNavigation.vue?vue&type=template&id=0b4045a6& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "uk-navbar-container uk-navbar-transparent",
+        attrs: { "uk-navbar": "" }
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-navbar-right" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { attrs: { "uk-dropdown": "mode: click" } }, [
+            _c(
+              "a",
+              {
+                attrs: { href: "" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.logout()
+                  }
+                }
+              },
+              [_vm._v("Выйти")]
+            )
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-navbar-left" }, [
+      _c("a", { staticClass: "uk-navbar-item uk-logo", attrs: { href: "#" } }, [
+        _vm._v("Accounting")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-navbar-nav uk-padding-small" }, [
+      _c(
+        "button",
+        { staticClass: "uk-button uk-button-text", attrs: { type: "button" } },
+        [_vm._v("\n                         userName\n                     ")]
+      )
     ])
   }
 ]
@@ -84445,197 +84876,204 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-container" }, [
-    _c("div", { staticClass: "uk-width-1-1" }, [
-      _c("ul", { staticClass: "uk-breadcrumb" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "li",
-          [
-            _c(
-              "router-link",
-              {
-                key: _vm.company.id,
-                attrs: {
-                  to: {
-                    name: "showCompany",
-                    params: { companyID: _vm.company.id }
-                  }
-                }
-              },
-              [_vm._v(_vm._s(_vm.company.name))]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _vm._m(1)
-      ]),
+  return _c(
+    "div",
+    [
+      _c("app-navigation", {
+        attrs: { user: _vm.userID, company: _vm.companyID }
+      }),
       _vm._v(" "),
-      _c("div", [
-        _c("div", { staticClass: "uk-card" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "uk-card-header uk-flex uk-flex-middle uk-flex-between"
-            },
-            [
-              _c("h3", { staticClass: "uk-card-title uk-margin-remove" }, [
-                _vm._v("Акты " + _vm._s(_vm.company.name) + " ")
-              ])
-            ]
-          ),
+      _c("div", { staticClass: "uk-container uk-margin-small-top" }, [
+        _c("div", { staticClass: "uk-width-1-1" }, [
+          _c("ul", { staticClass: "uk-breadcrumb" }, [
+            _c(
+              "li",
+              [
+                _c(
+                  "router-link",
+                  {
+                    key: _vm.company.id,
+                    attrs: {
+                      to: {
+                        name: "showCompany",
+                        params: { companyID: _vm.company.id }
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.company.name))]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
           _vm._v(" "),
-          _vm.company.acceptance_certificates != undefined
-            ? _c("div", { staticClass: "card-body table-responsive p-0" }, [
-                _c("table", { staticClass: "uk-table" }, [
-                  _c(
-                    "tbody",
-                    [
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _vm._l(_vm.company.acceptance_certificates, function(
-                        certificate
-                      ) {
-                        return _c("tr", { key: certificate.id }, [
-                          certificate.number != null
-                            ? _c(
-                                "td",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      key: _vm.company.id,
-                                      attrs: {
-                                        to: {
-                                          name: "ShowAcceptanceCertificate",
-                                          params: {
-                                            companyID: _vm.company.id,
-                                            acceptance_certificateID:
-                                              certificate.id
+          _c("div", [
+            _c("div", { staticClass: "uk-card" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-card-header uk-flex uk-flex-middle uk-flex-between"
+                },
+                [
+                  _c("h3", { staticClass: "uk-card-title uk-margin-remove" }, [
+                    _vm._v("Акты " + _vm._s(_vm.company.name) + " ")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _vm.company.acceptance_certificates != undefined
+                ? _c("div", { staticClass: "card-body table-responsive p-0" }, [
+                    _c("table", { staticClass: "uk-table" }, [
+                      _c(
+                        "tbody",
+                        [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _vm._l(_vm.company.acceptance_certificates, function(
+                            certificate
+                          ) {
+                            return _c("tr", { key: certificate.id }, [
+                              certificate.number != null
+                                ? _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          key: _vm.company.id,
+                                          attrs: {
+                                            to: {
+                                              name: "ShowAcceptanceCertificate",
+                                              params: {
+                                                companyID: _vm.company.id,
+                                                acceptance_certificateID:
+                                                  certificate.id
+                                              }
+                                            }
                                           }
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(certificate.number))]
+                                        },
+                                        [_vm._v(_vm._s(certificate.number))]
+                                      )
+                                    ],
+                                    1
                                   )
-                                ],
-                                1
-                              )
-                            : _c("td", [_vm._v("Ошибка!")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              _vm._s(
-                                _vm
-                                  .moment(certificate.date)
-                                  .locale("ru")
-                                  .format("LL")
-                              )
-                            )
-                          ]),
-                          _vm._v(" "),
-                          certificate.customer != 0
-                            ? _c("td", [
+                                : _c("td", [_vm._v("Ошибка!")]),
+                              _vm._v(" "),
+                              _c("td", [
                                 _vm._v(
-                                  "\n                            " +
-                                    _vm._s(certificate.customer.name) +
-                                    "\n                        "
+                                  _vm._s(
+                                    _vm
+                                      .moment(certificate.date)
+                                      .locale("ru")
+                                      .format("LL")
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              certificate.customer != 0
+                                ? _c("td", [
+                                    _vm._v(
+                                      "\n                              " +
+                                        _vm._s(certificate.customer.name) +
+                                        "\n                          "
+                                    )
+                                  ])
+                                : _c("td", [
+                                    _vm._v(
+                                      "\n                              Ошибка\n                          "
+                                    )
+                                  ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(certificate.total))]),
+                              _vm._v(" "),
+                              certificate.invoice != undefined
+                                ? _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          key: _vm.company.id,
+                                          attrs: {
+                                            to: {
+                                              name: "showInvoice",
+                                              params: {
+                                                companyID: _vm.company.id,
+                                                invoiceID:
+                                                  certificate.invoice_id
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              certificate.invoice.number
+                                                .invoice_number
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _c("td", [
+                                    _c(
+                                      "span",
+                                      { staticClass: "uk-text-danger" },
+                                      [_vm._v("Удален")]
+                                    )
+                                  ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._m(2, true),
+                                _vm._v(" "),
+                                _c("span", [_vm._v("|")]),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteCertificate(
+                                          certificate.id
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("span", {
+                                      staticClass: "uk-text-danger",
+                                      attrs: { "uk-icon": "close" }
+                                    })
+                                  ]
                                 )
                               ])
-                            : _c("td", [
-                                _vm._v(
-                                  "\n                            Ошибка\n                        "
-                                )
-                              ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(certificate.total))]),
-                          _vm._v(" "),
-                          certificate.invoice != undefined
-                            ? _c(
-                                "td",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      key: _vm.company.id,
-                                      attrs: {
-                                        to: {
-                                          name: "showInvoice",
-                                          params: {
-                                            companyID: _vm.company.id,
-                                            invoiceID: certificate.invoice_id
-                                          }
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        _vm._s(
-                                          certificate.invoice.number
-                                            .invoice_number
-                                        )
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              )
-                            : _c("td", [
-                                _c("span", { staticClass: "uk-text-danger" }, [
-                                  _vm._v("Удален")
-                                ])
-                              ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._m(3, true),
-                            _vm._v(" "),
-                            _c("span", [_vm._v("|")]),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteCertificate(certificate.id)
-                                  }
-                                }
-                              },
-                              [
-                                _c("span", {
-                                  staticClass: "uk-text-danger",
-                                  attrs: { "uk-icon": "close" }
-                                })
-                              ]
-                            )
-                          ])
-                        ])
-                      })
-                    ],
-                    2
-                  )
-                ])
-              ])
-            : _c("div", { staticClass: "card-body table-responsive p-0" }, [
-                _vm._v("Нет актов")
-              ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-card-footer" })
+                            ])
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ])
+                : _c("div", { staticClass: "card-body table-responsive p-0" }, [
+                    _vm._v("Нет актов")
+                  ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-card-footer" })
+            ])
+          ])
         ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -84690,426 +85128,438 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "uk-container" },
     [
       _c("app-navigation", {
         attrs: { user: _vm.userID, company: _vm.companyID }
       }),
       _vm._v(" "),
-      _c("ul", { staticClass: "uk-breadcrumb" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm.certificate.company != undefined
-          ? _c(
-              "li",
-              [
-                _c(
-                  "router-link",
-                  {
-                    key: _vm.companyID,
-                    attrs: {
-                      to: {
-                        name: "showCompany",
-                        params: { companyID: _vm.companyID }
+      _c("div", { staticClass: "uk-container uk-margin-small-top" }, [
+        _c("ul", { staticClass: "uk-breadcrumb" }, [
+          _vm.certificate.company != undefined
+            ? _c(
+                "li",
+                [
+                  _c(
+                    "router-link",
+                    {
+                      key: _vm.companyID,
+                      attrs: {
+                        to: {
+                          name: "showCompany",
+                          params: { companyID: _vm.companyID }
+                        }
                       }
+                    },
+                    [_vm._v(_vm._s(_vm.certificate.company.name))]
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "li",
+            [
+              _c(
+                "router-link",
+                {
+                  key: _vm.companyID,
+                  attrs: {
+                    to: {
+                      name: "AcceptanceCertificate",
+                      params: { companyID: _vm.companyID }
                     }
-                  },
-                  [_vm._v(_vm._s(_vm.certificate.company.name))]
-                )
-              ],
-              1
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c(
-          "li",
-          [
-            _c(
-              "router-link",
-              {
-                key: _vm.companyID,
-                attrs: {
-                  to: {
-                    name: "AcceptanceCertificate",
-                    params: { companyID: _vm.companyID }
                   }
-                }
-              },
-              [_vm._v("Акты")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _vm.certificate.number != undefined
-          ? _c("li", [
-              _c("span", [
-                _vm._v(
-                  "Акт № " +
-                    _vm._s(_vm.certificate.number) +
-                    " от " +
-                    _vm._s(
-                      _vm
-                        .moment(_vm.certificate.date)
-                        .locale("ru")
-                        .format("LL")
-                    )
-                )
+                },
+                [_vm._v("Акты")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.certificate.number != undefined
+            ? _c("li", [
+                _c("span", [
+                  _vm._v(
+                    "Акт № " +
+                      _vm._s(_vm.certificate.number) +
+                      " от " +
+                      _vm._s(_vm.certificate.date)
+                  )
+                ])
               ])
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { attrs: { "uk-grid": "" } }, [
-        _c("div", { staticClass: "uk-width-3-4" }, [
-          _c("div", { staticClass: "document", attrs: { id: "document" } }, [
-            _c(
-              "table",
-              {
-                staticStyle: { width: "700px", "font-size": "16px" },
-                attrs: { cellspacing: "0" }
-              },
-              [
-                _c("tr", [
-                  _c(
-                    "td",
-                    {
-                      staticStyle: {
-                        "border-bottom": "3px solid #000",
-                        "font-size": "25px",
-                        "font-weight": "bold"
-                      },
-                      attrs: { colspan: "6" }
-                    },
-                    [
-                      _vm._v(
-                        "Акт № " +
-                          _vm._s(_vm.certificate.number) +
-                          " от " +
-                          _vm._s(
-                            _vm
-                              .moment(_vm.certificate.date)
-                              .locale("ru")
-                              .format("LL")
-                          )
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
-                _c("tr", [
-                  _c("td", [_vm._v("Исполнитель:")]),
-                  _vm._v(" "),
-                  _vm.certificate.invoice != undefined
-                    ? _c(
-                        "td",
-                        {
-                          staticStyle: { "font-weight": "bold" },
-                          attrs: { colspan: "5" }
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(_vm.certificate.invoice.company.full_name) +
-                              ", ИНН/КПП: " +
-                              _vm._s(_vm.certificate.invoice.company.inn) +
-                              "/" +
-                              _vm._s(_vm.certificate.invoice.company.kpp) +
-                              ", " +
-                              _vm._s(
-                                _vm.certificate.invoice.company.legal_addres
-                              ) +
-                              " "
-                          )
-                        ]
-                      )
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _c("tr", [
-                  _c("td", [_vm._v("Заказчик:")]),
-                  _vm._v(" "),
-                  _vm.certificate.invoice != undefined
-                    ? _c(
-                        "td",
-                        {
-                          staticStyle: { "font-weight": "bold" },
-                          attrs: { colspan: "5" }
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(_vm.certificate.invoice.customer.full_name) +
-                              " ИНН/КПП: " +
-                              _vm._s(_vm.certificate.invoice.customer.inn) +
-                              "/" +
-                              _vm._s(_vm.certificate.invoice.customer.kpp) +
-                              ", " +
-                              _vm._s(
-                                _vm.certificate.invoice.customer.legal_addres
-                              )
-                          )
-                        ]
-                      )
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _vm._m(3),
-                _vm._v(" "),
-                _vm._m(4),
-                _vm._v(" "),
-                _vm._l(_vm.lines, function(line_product) {
-                  return _c("tr", { key: line_product.id }, [
-                    _c(
-                      "td",
-                      {
-                        staticStyle: {
-                          border: "1px solid #000",
-                          "border-top": "1px solid #000",
-                          "border-left": "2px solid #000",
-                          "border-bottom": "0px solid #000",
-                          "text-align": "center"
-                        }
-                      },
-                      [_vm._v(_vm._s(line_product.product_no))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticStyle: {
-                          border: "1px solid #000",
-                          "border-top": "1px solid #000",
-                          "border-bottom": "0px solid #000"
-                        }
-                      },
-                      [_vm._v(_vm._s(line_product.product_title))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticStyle: {
-                          border: "1px solid #000",
-                          "border-top": "1px solid #000",
-                          "border-bottom": "0px solid #000",
-                          "text-align": "right"
-                        }
-                      },
-                      [_vm._v(_vm._s(line_product.product_qty))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticStyle: {
-                          border: "1px solid #000",
-                          "border-top": "1px solid #000",
-                          "border-bottom": "0px solid #000",
-                          "text-align": "right"
-                        }
-                      },
-                      [_vm._v(_vm._s(line_product.product_unit))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticStyle: {
-                          border: "1px solid #000",
-                          "border-top": "1px solid #000",
-                          "border-bottom": "0px solid #000",
-                          "text-align": "right"
-                        }
-                      },
-                      [
-                        _vm._v(
-                          _vm._s(_vm._f("currency")(line_product.product_price))
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticStyle: {
-                          border: "1px solid #000",
-                          "border-top": "1px solid #000",
-                          "border-right": "2px solid #000",
-                          "border-bottom": "0px solid #000",
-                          "text-align": "right"
-                        }
-                      },
-                      [
-                        _vm._v(
-                          _vm._s(_vm._f("currency")(line_product.line_total))
-                        )
-                      ]
-                    )
-                  ])
-                }),
-                _vm._v(" "),
-                _vm._m(5),
-                _vm._v(" "),
-                _vm._m(6),
-                _vm._v(" "),
-                _c("tr", [
-                  _c(
-                    "td",
-                    {
-                      staticStyle: {
-                        "font-weight": "bold",
-                        "text-align": "right"
-                      },
-                      attrs: { colspan: "5" }
-                    },
-                    [_vm._v("Итого:")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    {
-                      staticStyle: {
-                        "font-weight": "bold",
-                        "text-align": "right"
-                      }
-                    },
-                    [_vm._v(_vm._s(_vm._f("currency")(_vm.certificate.total)))]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("tr", [
-                  _c(
-                    "td",
-                    {
-                      staticStyle: {
-                        "font-weight": "bold",
-                        "text-align": "right"
-                      },
-                      attrs: { colspan: "5" }
-                    },
-                    [_vm._v("В том числе НДС:")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    {
-                      staticStyle: {
-                        "font-weight": "bold",
-                        "text-align": "right"
-                      }
-                    },
-                    [_vm._v(_vm._s(_vm._f("currency")(_vm.certificate.tax)))]
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._m(7),
-                _vm._v(" "),
-                _c("tr", [
-                  _c("td", { attrs: { colspan: "6" } }, [
-                    _vm._v(
-                      "Всего оказано услуг " +
-                        _vm._s(_vm.lines.length) +
-                        ", на сумму " +
-                        _vm._s(_vm._f("currency")(_vm.certificate.total)) +
-                        " рублей"
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tr", [
-                  _c(
-                    "td",
-                    {
-                      staticStyle: { "font-weight": "bold" },
-                      attrs: { colspan: "6" }
-                    },
-                    [_vm._v(_vm._s(_vm.total))]
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._m(8),
-                _vm._v(" "),
-                _vm._m(9),
-                _vm._v(" "),
-                _vm._m(10),
-                _vm._v(" "),
-                _vm._m(11),
-                _vm._v(" "),
-                _c("tr", [
-                  _vm.certificate.invoice != undefined
-                    ? _c("td", { attrs: { colspan: "2" } }, [
-                        _vm._v(
-                          "_______/" +
-                            _vm._s(
-                              _vm.certificate.invoice.company.director_name
-                            )
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("td"),
-                  _vm._v(" "),
-                  _vm.certificate.invoice != undefined
-                    ? _c("td", { attrs: { colspan: "4" } }, [
-                        _vm._v(
-                          "_______/" +
-                            _vm._s(
-                              _vm.certificate.invoice.customer.director_name
-                            )
-                        )
-                      ])
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _vm._m(12),
-                _vm._v(" "),
-                _c("tr")
-              ],
-              2
-            )
-          ])
+            : _vm._e()
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "uk-width-1-4" }, [
-          _c("div", { staticClass: "uk-flex uk-flex-column" }, [
-            _c("a", { attrs: { href: "" } }, [_vm._v("Отправить")]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                attrs: { href: "" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.print()
+        _c("div", { attrs: { "uk-grid": "" } }, [
+          _c("div", { staticClass: "uk-width-3-4" }, [
+            _c("div", { staticClass: "document", attrs: { id: "document" } }, [
+              _c(
+                "table",
+                {
+                  staticStyle: { width: "700px", "font-size": "16px" },
+                  attrs: { cellspacing: "0" }
+                },
+                [
+                  _c("tr", [
+                    _c(
+                      "td",
+                      {
+                        staticStyle: {
+                          "border-bottom": "3px solid #000",
+                          "font-size": "25px",
+                          "font-weight": "bold"
+                        },
+                        attrs: { colspan: "6" }
+                      },
+                      [
+                        _vm._v(
+                          "Акт № " +
+                            _vm._s(_vm.certificate.number) +
+                            " от " +
+                            _vm._s(
+                              _vm
+                                .moment(_vm.certificate.date)
+                                .locale("ru")
+                                .format("LL")
+                            )
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Исполнитель:")]),
+                    _vm._v(" "),
+                    _vm.certificate.invoice != undefined
+                      ? _c(
+                          "td",
+                          {
+                            staticStyle: { "font-weight": "bold" },
+                            attrs: { colspan: "5" }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.certificate.invoice.company.full_name
+                              ) +
+                                ", ИНН/КПП: " +
+                                _vm._s(_vm.certificate.invoice.company.inn) +
+                                "/" +
+                                _vm._s(_vm.certificate.invoice.company.kpp) +
+                                ", " +
+                                _vm._s(
+                                  _vm.certificate.invoice.company.legal_addres
+                                ) +
+                                " "
+                            )
+                          ]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Заказчик:")]),
+                    _vm._v(" "),
+                    _vm.certificate.invoice != undefined
+                      ? _c(
+                          "td",
+                          {
+                            staticStyle: { "font-weight": "bold" },
+                            attrs: { colspan: "5" }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.certificate.invoice.customer.full_name
+                              ) +
+                                " ИНН/КПП: " +
+                                _vm._s(_vm.certificate.invoice.customer.inn) +
+                                "/" +
+                                _vm._s(_vm.certificate.invoice.customer.kpp) +
+                                ", " +
+                                _vm._s(
+                                  _vm.certificate.invoice.customer.legal_addres
+                                )
+                            )
+                          ]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Основание:")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "5" } }, [
+                      _vm._v(_vm._s(_vm.certificate.basis))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _vm._l(_vm.lines, function(line_product) {
+                    return _c("tr", { key: line_product.id }, [
+                      _c(
+                        "td",
+                        {
+                          staticStyle: {
+                            border: "1px solid #000",
+                            "border-top": "1px solid #000",
+                            "border-left": "2px solid #000",
+                            "border-bottom": "0px solid #000",
+                            "text-align": "center"
+                          }
+                        },
+                        [_vm._v(_vm._s(line_product.product_no))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticStyle: {
+                            border: "1px solid #000",
+                            "border-top": "1px solid #000",
+                            "border-bottom": "0px solid #000"
+                          }
+                        },
+                        [_vm._v(_vm._s(line_product.product_title))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticStyle: {
+                            border: "1px solid #000",
+                            "border-top": "1px solid #000",
+                            "border-bottom": "0px solid #000",
+                            "text-align": "right"
+                          }
+                        },
+                        [_vm._v(_vm._s(line_product.product_qty))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticStyle: {
+                            border: "1px solid #000",
+                            "border-top": "1px solid #000",
+                            "border-bottom": "0px solid #000",
+                            "text-align": "right"
+                          }
+                        },
+                        [_vm._v(_vm._s(line_product.product_unit))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticStyle: {
+                            border: "1px solid #000",
+                            "border-top": "1px solid #000",
+                            "border-bottom": "0px solid #000",
+                            "text-align": "right"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("currency")(line_product.product_price)
+                            )
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticStyle: {
+                            border: "1px solid #000",
+                            "border-top": "1px solid #000",
+                            "border-right": "2px solid #000",
+                            "border-bottom": "0px solid #000",
+                            "text-align": "right"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(_vm._f("currency")(line_product.line_total))
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c(
+                      "td",
+                      {
+                        staticStyle: {
+                          "font-weight": "bold",
+                          "text-align": "right"
+                        },
+                        attrs: { colspan: "5" }
+                      },
+                      [_vm._v("Итого:")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticStyle: {
+                          "font-weight": "bold",
+                          "text-align": "right"
+                        }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(_vm._f("currency")(_vm.certificate.total))
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c(
+                      "td",
+                      {
+                        staticStyle: {
+                          "font-weight": "bold",
+                          "text-align": "right"
+                        },
+                        attrs: { colspan: "5" }
+                      },
+                      [_vm._v("В том числе НДС:")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticStyle: {
+                          "font-weight": "bold",
+                          "text-align": "right"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm._f("currency")(_vm.certificate.tax)))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "6" } }, [
+                      _vm._v(
+                        "Всего оказано услуг " +
+                          _vm._s(_vm.lines.length) +
+                          ", на сумму " +
+                          _vm._s(_vm._f("currency")(_vm.certificate.total)) +
+                          " рублей"
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c(
+                      "td",
+                      {
+                        staticStyle: { "font-weight": "bold" },
+                        attrs: { colspan: "6" }
+                      },
+                      [_vm._v(_vm._s(_vm.total))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _vm._m(8),
+                  _vm._v(" "),
+                  _vm._m(9),
+                  _vm._v(" "),
+                  _vm._m(10),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _vm.certificate.invoice != undefined
+                      ? _c("td", { attrs: { colspan: "2" } }, [
+                          _vm._v(
+                            "_______/" +
+                              _vm._s(
+                                _vm.certificate.invoice.company.director_name
+                              )
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _vm.certificate.invoice != undefined
+                      ? _c("td", { attrs: { colspan: "4" } }, [
+                          _vm._v(
+                            "_______/" +
+                              _vm._s(
+                                _vm.certificate.invoice.customer.director_name
+                              )
+                          )
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(11),
+                  _vm._v(" "),
+                  _c("tr")
+                ],
+                2
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-width-1-4" }, [
+            _c("div", { staticClass: "uk-flex uk-flex-column" }, [
+              _c("a", { attrs: { href: "" } }, [_vm._v("Отправить")]),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.print()
+                    }
                   }
-                }
-              },
-              [_vm._v("Печать")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                attrs: { href: "" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.createPDF($event)
+                },
+                [_vm._v("Печать")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.createPDF($event)
+                    }
                   }
-                }
-              },
-              [_vm._v("Скачать")]
-            ),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "" } }, [_vm._v("Передан")]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "" } }, [_vm._v("Подписан")]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "" } }, [_vm._v("Удалить")])
+                },
+                [_vm._v("Скачать")]
+              ),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "" } }, [_vm._v("Передан")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "" } }, [_vm._v("Подписан")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "" } }, [_vm._v("Удалить")])
+            ])
           ])
         ])
       ])
@@ -85118,12 +85568,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -85864,74 +86308,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-container" }, [
-    _c(
-      "div",
-      { staticClass: "uk-width-1-1" },
-      [
-        _c("ul", { staticClass: "uk-breadcrumb" }, [
-          _c(
-            "li",
-            [
-              _c("router-link", { attrs: { to: { name: "Dashboard" } } }, [
-                _c("span", { attrs: { "uk-icon": "home" } })
-              ])
-            ],
-            1
-          ),
+  return _c(
+    "div",
+    [
+      _c("app-navigation", {
+        attrs: { user: _vm.userID, company: _vm.company.id }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-container uk-margin-small-top" }, [
+        _c("div", { staticClass: "uk-width-1-1" }, [
+          _c("ul", { staticClass: "uk-breadcrumb" }, [
+            _c(
+              "li",
+              [
+                _c("router-link", { attrs: { to: { name: "Dashboard" } } }, [
+                  _c("span", { attrs: { "uk-icon": "home" } })
+                ])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("li", [_c("span", [_vm._v(_vm._s(_vm.company.name))])])
+          ]),
           _vm._v(" "),
-          _c("li", [_c("span", [_vm._v(_vm._s(_vm.company.name))])])
-        ]),
-        _vm._v(" "),
-        _c("h3", { staticClass: "uk-card-title uk-margin-remove" }, [
-          _vm._v(_vm._s(_vm.company.name) + " ")
-        ]),
-        _vm._v(" "),
-        _c("app-navigation", {
-          attrs: { user: _vm.userID, company: _vm.company.id }
-        }),
-        _vm._v(" "),
-        _c("div", { attrs: { "uk-grid": "" } }, [
-          _c("div", { staticClass: "uk-width-1-1" }, [
-            _c("div", { staticClass: "uk-card" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body table-responsive p-0" }, [
-                _c("table", { staticClass: "uk-table" }, [
-                  _c("tbody", [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v(_vm._s(_vm.count_invoices))]),
+          _c("h3", { staticClass: "uk-card-title uk-margin-remove" }, [
+            _vm._v(_vm._s(_vm.company.name) + " ")
+          ]),
+          _vm._v(" "),
+          _c("div", { attrs: { "uk-grid": "" } }, [
+            _c("div", { staticClass: "uk-width-1-1" }, [
+              _c("div", { staticClass: "uk-card" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body table-responsive p-0" }, [
+                  _c("table", { staticClass: "uk-table" }, [
+                    _c("tbody", [
+                      _vm._m(1),
                       _vm._v(" "),
-                      _c("td", [
-                        _vm._v(_vm._s(_vm._f("currency")(_vm.summ_invoices)))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(_vm._f("currency")(_vm.paid_summ_invoices))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(_vm._f("currency")(_vm.not_paid_summ_invoices))
-                        )
+                      _c("tr", [
+                        _c("td", [_vm._v(_vm._s(_vm.count_invoices))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm._f("currency")(_vm.summ_invoices)))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(_vm._f("currency")(_vm.paid_summ_invoices))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("currency")(_vm.not_paid_summ_invoices)
+                            )
+                          )
+                        ])
                       ])
                     ])
                   ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "uk-card-footer" })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-card-footer" })
+              ])
             ])
           ])
         ])
-      ],
-      1
-    )
-  ])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -86121,1014 +86568,393 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-container" }, [
-    _c(
-      "div",
-      { staticClass: "uk-width-1-1" },
-      [
-        _c("ul", { staticClass: "uk-breadcrumb" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                {
-                  key: _vm.company.id,
-                  attrs: {
-                    to: {
-                      name: "showCompany",
-                      params: { companyID: _vm.company.id }
-                    }
-                  }
-                },
-                [_vm._v(_vm._s(_vm.company.name))]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm._m(1)
-        ]),
-        _vm._v(" "),
-        _c("app-navigation", {
-          attrs: { user: _vm.userID, company: _vm.company.id }
-        }),
-        _vm._v(" "),
-        _c("div", { attrs: { "uk-grid": "" } }, [
-          _c("div", { staticClass: "uk-width-1-1" }, [
-            _c("div", { staticClass: "uk-card" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "uk-card-header uk-flex uk-flex-middle uk-flex-between"
-                },
-                [
-                  _c("h3", { staticClass: "uk-card-title uk-margin-remove" }, [
-                    _vm._v("Счета " + _vm._s(_vm.company.name) + " ")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "uk-button uk-button-primary",
-                        attrs: {
-                          type: "button",
-                          "uk-toggle": "target: #addNew"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.getInvoiceNumber()
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Добавить счет\n                        "
-                        )
-                      ]
-                    )
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _vm.company.invoices != 0
-                ? _c("div", { staticClass: "card-body table-responsive p-0" }, [
-                    _c(
-                      "table",
-                      {
-                        staticClass: "uk-table",
-                        staticStyle: { "text-align": "center" }
-                      },
-                      [
-                        _c(
-                          "tbody",
-                          [
-                            _vm._m(2),
-                            _vm._v(" "),
-                            _vm._l(_vm.company.invoices, function(invoice) {
-                              return _c("tr", { key: invoice.id }, [
-                                invoice.number != null
-                                  ? _c(
-                                      "td",
-                                      [
-                                        _c(
-                                          "router-link",
-                                          {
-                                            key: _vm.company.id,
-                                            attrs: {
-                                              to: {
-                                                name: "showInvoice",
-                                                params: {
-                                                  companyID: _vm.company.id,
-                                                  invoiceID: invoice.id
-                                                }
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                invoice.number.invoice_number
-                                              )
-                                            )
-                                          ]
-                                        )
-                                      ],
-                                      1
-                                    )
-                                  : _c("td", [_vm._v("Ошибка!")]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm
-                                        .moment(invoice.date)
-                                        .locale("ru")
-                                        .format("LL")
-                                    )
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                invoice.customer != 0
-                                  ? _c("td", [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(invoice.customer.name) +
-                                          "\n                                "
-                                      )
-                                    ])
-                                  : _c("td", [
-                                      _vm._v(
-                                        "\n                                Ошибка\n                                "
-                                      )
-                                    ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm._f("currency")(invoice.invoice_total)
-                                    )
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                invoice.paid == 1 || invoice.paid != null
-                                  ? _c(
-                                      "td",
-                                      { staticClass: "uk-text-success" },
-                                      [_vm._v("Оплачен")]
-                                    )
-                                  : _c("td", [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "uk-button uk-button-link uk-text-danger",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.changePaidStatus(
-                                                invoice.id
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Не оплачен")]
-                                      )
-                                    ]),
-                                _vm._v(" "),
-                                invoice.acceptance_certificate != null
-                                  ? _c(
-                                      "td",
-                                      [
-                                        _c(
-                                          "router-link",
-                                          {
-                                            key: _vm.company.id,
-                                            attrs: {
-                                              to: {
-                                                name:
-                                                  "ShowAcceptanceCertificate",
-                                                params: {
-                                                  userID: _vm.userID,
-                                                  companyID: _vm.companyID,
-                                                  acceptance_certificateID:
-                                                    invoice
-                                                      .acceptance_certificate.id
-                                                }
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                invoice.acceptance_certificate
-                                                  .number
-                                              )
-                                            )
-                                          ]
-                                        )
-                                      ],
-                                      1
-                                    )
-                                  : _c("td", [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "uk-button uk-button-link",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.createAcceptanceCertificate(
-                                                invoice.id
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Добавить")]
-                                      )
-                                    ]),
-                                _vm._v(" "),
-                                invoice.packing_list_id != null
-                                  ? _c("td", [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(invoice.packing_list_id) +
-                                          "\n                                "
-                                      )
-                                    ])
-                                  : _c("td", [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "uk-button uk-button-link",
-                                          attrs: { href: "" }
-                                        },
-                                        [_vm._v("Добавить")]
-                                      )
-                                    ]),
-                                _vm._v(" "),
-                                invoice.packing_list_id != null
-                                  ? _c("td", [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(invoice.packing_list_id) +
-                                          "\n                                "
-                                      )
-                                    ])
-                                  : _c("td", [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "uk-button uk-button-link",
-                                          attrs: { href: "" }
-                                        },
-                                        [_vm._v("Добавить")]
-                                      )
-                                    ]),
-                                _vm._v(" "),
-                                invoice.vat_invoice_id != null
-                                  ? _c("td", [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(invoice.vat_invoice_id) +
-                                          "\n                                "
-                                      )
-                                    ])
-                                  : _c("td", [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "uk-button uk-button-link",
-                                          attrs: { href: "" }
-                                        },
-                                        [_vm._v("Добавить")]
-                                      )
-                                    ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        href: "#",
-                                        "data-id": "invoice.id"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.editModalWindow(invoice)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("span", {
-                                        attrs: { "uk-icon": "pencil" }
-                                      })
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("span", [_vm._v("|")]),
-                                  _vm._v(" "),
-                                  _c("button", {
-                                    staticClass:
-                                      "uk-button uk-button-link uk-text-danger",
-                                    attrs: { "uk-icon": "close" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.deleteInvoice(invoice.id)
-                                      }
-                                    }
-                                  })
-                                ])
-                              ])
-                            })
-                          ],
-                          2
-                        )
-                      ]
-                    )
-                  ])
-                : _c("div", { staticClass: "card-body table-responsive p-0" }, [
-                    _vm._v("Нет счетов")
-                  ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "uk-card-footer" })
-            ])
-          ])
-        ])
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "uk-modal-container",
-        attrs: {
-          id: "addNew",
-          "uk-modal": "",
-          "aria-labelledby": "addNewLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
-            attrs: { "uk-overflow-auto": "" }
-          },
-          [
-            _c("button", {
-              staticClass: "uk-modal-close-default",
-              attrs: { type: "button", "uk-close": "" }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "uk-modal-header" }, [
+  return _c(
+    "div",
+    [
+      _c("app-navigation", {
+        attrs: { user: _vm.userID, company: _vm.company.id }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-container uk-margin-small-top" }, [
+        _c("div", { staticClass: "uk-width-1-1" }, [
+          _c("ul", { staticClass: "uk-breadcrumb" }, [
+            _c(
+              "li",
+              [
                 _c(
-                  "h5",
+                  "router-link",
                   {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: !_vm.editMode,
-                        expression: "!editMode"
+                    key: _vm.company.id,
+                    attrs: {
+                      to: {
+                        name: "showCompany",
+                        params: { companyID: _vm.company.id }
                       }
-                    ],
-                    staticClass: "modal-title",
-                    attrs: { id: "addNewLabel" }
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.company.name))]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
+          _vm._v(" "),
+          _c("div", { attrs: { "uk-grid": "" } }, [
+            _c("div", { staticClass: "uk-width-1-1" }, [
+              _c("div", { staticClass: "uk-card" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-card-header uk-flex uk-flex-middle uk-flex-between"
                   },
                   [
-                    _vm._v(
-                      "\n                        Новый счет\n                    "
-                    )
+                    _c(
+                      "h3",
+                      { staticClass: "uk-card-title uk-margin-remove" },
+                      [_vm._v("Счета " + _vm._s(_vm.company.name) + " ")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "uk-button uk-button-primary",
+                          attrs: {
+                            type: "button",
+                            "uk-toggle": "target: #addNew"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.getInvoiceNumber()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                    Добавить счет\n                                "
+                          )
+                        ]
+                      )
+                    ])
                   ]
                 ),
                 _vm._v(" "),
-                _c(
-                  "h5",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.editMode,
-                        expression: "editMode"
-                      }
-                    ],
-                    staticClass: "modal-title",
-                    attrs: { id: "addNewLabel" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Редактировать счет\n                    "
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "form",
-                {
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      _vm.editMode ? _vm.updateInvoice() : _vm.createInvoice()
-                    }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "uk-modal-body" }, [
-                    _c(
+                _vm.company.invoices != 0
+                  ? _c(
                       "div",
-                      {
-                        staticClass:
-                          "uk-margin  uk-flex uk-flex-left uk-flex-middle"
-                      },
+                      { staticClass: "card-body table-responsive p-0" },
                       [
-                        _c("label", { attrs: { for: "" } }, [
-                          _vm._v("Исходящий счет № ")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.invoice_number,
-                              expression: "form.invoice_number"
-                            }
-                          ],
-                          staticClass:
-                            "uk-input uk-width-1-6 uk-margin-small-left uk-margin-medium-right",
-                          class: {
-                            "uk-text-danger": _vm.form.errors.has(
-                              "invoice_number"
-                            )
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "invoice_number",
-                            placeholder: "Number"
-                          },
-                          domProps: { value: _vm.form.invoice_number },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "invoice_number",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "invoice_number" }
-                        }),
-                        _vm._v(" "),
-                        _c("label", { attrs: { for: "" } }, [_vm._v("от")]),
-                        _vm._v(" "),
-                        _c("date-picker", {
-                          class: {
-                            "is-invalid": _vm.form.errors.has("date")
-                          },
-                          attrs: {
-                            name: "date",
-                            "input-class": "uk-input uk-margin-small-left",
-                            type: "date",
-                            format: _vm.dateFormat
-                          },
-                          on: {
-                            change: function($event) {
-                              return _vm.setDate()
-                            }
-                          },
-                          model: {
-                            value: _vm.form.date,
-                            callback: function($$v) {
-                              _vm.$set(_vm.form, "date", $$v)
-                            },
-                            expression: "form.date"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "date" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "uk-margin uk-flex uk-flex-between uk-flex-middle"
-                      },
-                      [
-                        _c("label", { attrs: { for: "" } }, [_vm._v("Клиент")]),
-                        _vm._v(" "),
                         _c(
-                          "select",
+                          "table",
                           {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.customer_id,
-                                expression: "form.customer_id"
-                              }
-                            ],
-                            staticClass: "uk-select uk-width-3-4",
-                            class: {
-                              "is-invalid": _vm.form.errors.has("customer_id")
-                            },
-                            attrs: {
-                              type: "text",
-                              name: "customer_id",
-                              placeholder: "Customer"
-                            },
-                            on: {
-                              change: [
-                                function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.form,
-                                    "customer_id",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                },
-                                function($event) {
-                                  return _vm.setCustomer()
-                                }
-                              ]
-                            }
+                            staticClass: "uk-table",
+                            staticStyle: { "text-align": "center" }
                           },
                           [
                             _c(
-                              "option",
-                              {
-                                attrs: { default: "", disabled: "", value: "0" }
-                              },
-                              [_vm._v("Выбрать")]
-                            ),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "add" } }, [
-                              _vm._v("Добавить клиента")
-                            ]),
-                            _vm._v(" "),
-                            _vm._l(_vm.company.customers, function(customer) {
-                              return _c(
-                                "option",
-                                {
-                                  key: customer.id,
-                                  domProps: {
-                                    value: customer.id,
-                                    selected:
-                                      customer.id === _vm.company.customers
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                " +
-                                      _vm._s(customer.name) +
-                                      "\n                            "
-                                  )
-                                ]
-                              )
-                            })
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "customers" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("table", { staticClass: "uk-table uk-table-middle" }, [
-                      _vm._m(3),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.form.invoice_products, function(
-                          invoice_product,
-                          k
-                        ) {
-                          return _c("tr", { key: k }, [
-                            _c("td", [
-                              _c("span", {
-                                staticClass: "uk-text-danger",
-                                attrs: { "uk-icon": "icon: trash" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteRow(k, invoice_product)
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(invoice_product.product_no) +
-                                  "\n                                "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: invoice_product.product_id,
-                                      expression: "invoice_product.product_id"
-                                    }
-                                  ],
-                                  staticClass: "uk-select",
-                                  attrs: { name: "product_id" },
-                                  on: {
-                                    change: [
-                                      function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.$set(
-                                          invoice_product,
-                                          "product_id",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
+                              "tbody",
+                              [
+                                _vm._m(1),
+                                _vm._v(" "),
+                                _vm._l(_vm.company.invoices, function(invoice) {
+                                  return _c("tr", { key: invoice.id }, [
+                                    invoice.number != null
+                                      ? _c(
+                                          "td",
+                                          [
+                                            _c(
+                                              "router-link",
+                                              {
+                                                key: _vm.company.id,
+                                                attrs: {
+                                                  to: {
+                                                    name: "showInvoice",
+                                                    params: {
+                                                      companyID: _vm.company.id,
+                                                      invoiceID: invoice.id
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    invoice.number
+                                                      .invoice_number
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          ],
+                                          1
                                         )
-                                      },
-                                      function($event) {
-                                        return _vm.setProduct(invoice_product)
-                                      }
-                                    ]
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    {
-                                      attrs: {
-                                        default: "",
-                                        disabled: "",
-                                        value: "0"
-                                      }
-                                    },
-                                    [_vm._v("Выбрать")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "add" } }, [
-                                    _vm._v("Добавить продукт")
-                                  ]),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.company.products, function(
-                                    product
-                                  ) {
-                                    return _c(
-                                      "option",
-                                      {
-                                        key: product.id,
-                                        domProps: {
-                                          value: product.id,
-                                          selected:
-                                            product.id === _vm.company.products
+                                      : _c("td", [_vm._v("Ошибка!")]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm
+                                            .moment(invoice.date)
+                                            .locale("ru")
+                                            .format("LL")
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    invoice.customer != 0
+                                      ? _c("td", [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(invoice.customer.name) +
+                                              "\n                                        "
+                                          )
+                                        ])
+                                      : _c("td", [
+                                          _vm._v(
+                                            "\n                                        Ошибка\n                                        "
+                                          )
+                                        ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("currency")(
+                                            invoice.invoice_total
+                                          )
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    invoice.paid_status == 1
+                                      ? _c(
+                                          "td",
+                                          {
+                                            staticClass:
+                                              "uk-text-success uk-text-uppercase"
+                                          },
+                                          [_vm._v("Оплачен")]
+                                        )
+                                      : _c("td", [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "uk-button uk-button-link uk-text-danger",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openChangePaidStatusModal(
+                                                    invoice.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Не оплачен")]
+                                          )
+                                        ]),
+                                    _vm._v(" "),
+                                    invoice.acceptance_certificate != null
+                                      ? _c(
+                                          "td",
+                                          [
+                                            _c(
+                                              "router-link",
+                                              {
+                                                key: _vm.company.id,
+                                                attrs: {
+                                                  to: {
+                                                    name:
+                                                      "ShowAcceptanceCertificate",
+                                                    params: {
+                                                      userID: _vm.userID,
+                                                      companyID: _vm.companyID,
+                                                      acceptance_certificateID:
+                                                        invoice
+                                                          .acceptance_certificate
+                                                          .id
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    invoice
+                                                      .acceptance_certificate
+                                                      .number
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      : _c("td", [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "uk-button uk-button-link",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openCreateSertificateModal(
+                                                    invoice.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Добавить")]
+                                          )
+                                        ]),
+                                    _vm._v(" "),
+                                    invoice.packing_list_id != null
+                                      ? _c("td", [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(invoice.packing_list_id) +
+                                              "\n                                        "
+                                          )
+                                        ])
+                                      : _c("td", [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "uk-button uk-button-link",
+                                              attrs: { href: "" }
+                                            },
+                                            [_vm._v("Добавить")]
+                                          )
+                                        ]),
+                                    _vm._v(" "),
+                                    invoice.packing_list_id != null
+                                      ? _c("td", [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(invoice.packing_list_id) +
+                                              "\n                                        "
+                                          )
+                                        ])
+                                      : _c("td", [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "uk-button uk-button-link",
+                                              attrs: { href: "" }
+                                            },
+                                            [_vm._v("Добавить")]
+                                          )
+                                        ]),
+                                    _vm._v(" "),
+                                    invoice.vat_invoice_id != null
+                                      ? _c("td", [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(invoice.vat_invoice_id) +
+                                              "\n                                        "
+                                          )
+                                        ])
+                                      : _c("td", [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "uk-button uk-button-link",
+                                              attrs: { href: "" }
+                                            },
+                                            [_vm._v("Добавить")]
+                                          )
+                                        ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "#",
+                                            "data-id": "invoice.id"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.editModalWindow(
+                                                invoice
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("span", {
+                                            attrs: { "uk-icon": "pencil" }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("span", [_vm._v("|")]),
+                                      _vm._v(" "),
+                                      _c("button", {
+                                        staticClass:
+                                          "uk-button uk-button-link uk-text-danger",
+                                        attrs: { "uk-icon": "close" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.deleteInvoice(invoice.id)
+                                          }
                                         }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                            " +
-                                            _vm._s(product.title) +
-                                            "\n                                        "
-                                        )
-                                      ]
-                                    )
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "selectProduct" } },
-                                    [_vm._v("Список продуктов")]
-                                  )
-                                ],
-                                2
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: invoice_product.product_price,
-                                    expression: "invoice_product.product_price"
-                                  }
-                                ],
-                                staticClass: "uk-input",
-                                attrs: {
-                                  name: "product_price",
-                                  type: "number",
-                                  min: "0",
-                                  step: ".01"
-                                },
-                                domProps: {
-                                  value: invoice_product.product_price
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.calculateLineTotal(
-                                      invoice_product
-                                    )
-                                  },
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      invoice_product,
-                                      "product_price",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: invoice_product.product_qty,
-                                    expression: "invoice_product.product_qty"
-                                  }
-                                ],
-                                staticClass: "uk-input",
-                                attrs: {
-                                  name: "product_qty",
-                                  type: "number",
-                                  min: "0",
-                                  step: "1"
-                                },
-                                domProps: {
-                                  value: invoice_product.product_qty
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.calculateLineTotal(
-                                      invoice_product
-                                    )
-                                  },
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      invoice_product,
-                                      "product_qty",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: invoice_product.product_tax,
-                                      expression: "invoice_product.product_tax"
-                                    }
-                                  ],
-                                  staticClass: "uk-select uk-width-1-1",
-                                  class: {
-                                    "is-invalid": _vm.form.errors.has(
-                                      "product_tax"
-                                    )
-                                  },
-                                  attrs: { name: "product_tax" },
-                                  on: {
-                                    change: [
-                                      function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.$set(
-                                          invoice_product,
-                                          "product_tax",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
-                                        )
-                                      },
-                                      function($event) {
-                                        return _vm.calculateTotal(
-                                          invoice_product
-                                        )
-                                      }
-                                    ]
-                                  }
-                                },
-                                [
-                                  _c("option", { attrs: { value: "0" } }, [
-                                    _vm._v("Без НДС")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "10" } }, [
-                                    _vm._v("10%")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    {
-                                      attrs: {
-                                        default: "",
-                                        selected: "",
-                                        value: "20"
-                                      }
-                                    },
-                                    [_vm._v("20%")]
-                                  )
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: invoice_product.line_total,
-                                    expression: "invoice_product.line_total"
-                                  }
-                                ],
-                                staticClass: "uk-input",
-                                attrs: {
-                                  name: "product_total",
-                                  type: "number",
-                                  min: "0",
-                                  step: ".01"
-                                },
-                                domProps: { value: invoice_product.line_total },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      invoice_product,
-                                      "line_total",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ])
-                          ])
-                        }),
-                        0
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "uk-margin" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "uk-button uk-button-primary",
-                          on: { click: _vm.addNewRow }
-                        },
-                        [
-                          _c("span", { attrs: { "uk-icon": "icon: plus" } }),
-                          _vm._v("Add row")
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "uk-flex uk-flex-column uk-flex-bottom" },
-                      [
-                        _c("div", { staticClass: "uk-margin" }, [
-                          _vm._v(
-                            "\n                            Итого: " +
-                              _vm._s(
-                                _vm._f("currency")(_vm.form.invoice_subtotal)
-                              ) +
-                              "    \n                        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "uk-margin" }, [
-                          _vm._v(
-                            "\n                            НДС сверху: " +
-                              _vm._s(_vm._f("currency")(_vm.form.invoice_tax)) +
-                              "    \n                        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "uk-margin" }, [
-                          _vm._v(
-                            "\n                            Всего к оплате: " +
-                              _vm._s(
-                                _vm._f("currency")(_vm.form.invoice_total)
-                              ) +
-                              "    \n                        "
-                          )
-                        ])
+                                      })
+                                    ])
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                          ]
+                        )
                       ]
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "uk-modal-footer" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "uk-button uk-button-danger",
-                        attrs: { type: "button", "data-dismiss": "modal" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                          Close\n                      "
-                        )
-                      ]
+                  : _c(
+                      "div",
+                      { staticClass: "card-body table-responsive p-0" },
+                      [_vm._v("Нет счетов")]
                     ),
-                    _vm._v(" "),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-card-footer" })
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "uk-modal-container",
+            attrs: {
+              id: "addNew",
+              "uk-modal": "",
+              "aria-labelledby": "addNewLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
+                attrs: { "uk-overflow-auto": "" }
+              },
+              [
+                _c("button", {
+                  staticClass: "uk-modal-close-default",
+                  attrs: { type: "button", "uk-close": "" }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "uk-modal-header" }, [
                     _c(
-                      "button",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.editMode,
-                            expression: "editMode"
-                          }
-                        ],
-                        staticClass: "uk-button uk-button-primary",
-                        attrs: { type: "submit" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                          Update\n                      "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
+                      "h5",
                       {
                         directives: [
                           {
@@ -87138,797 +86964,1720 @@ var render = function() {
                             expression: "!editMode"
                           }
                         ],
-                        staticClass: "uk-button uk-button-primary",
-                        attrs: { type: "submit" }
+                        staticClass: "modal-title",
+                        attrs: { id: "addNewLabel" }
                       },
                       [
                         _vm._v(
-                          "\n                          Create\n                      "
+                          "\n                            Новый счет\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "h5",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editMode,
+                            expression: "editMode"
+                          }
+                        ],
+                        staticClass: "modal-title",
+                        attrs: { id: "addNewLabel" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Редактировать счет\n                        "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          _vm.editMode
+                            ? _vm.updateInvoice()
+                            : _vm.createInvoice()
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "uk-modal-body" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-margin  uk-flex uk-flex-left uk-flex-middle"
+                          },
+                          [
+                            _c("label", { attrs: { for: "" } }, [
+                              _vm._v("Исходящий счет № ")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.invoice_number,
+                                  expression: "form.invoice_number"
+                                }
+                              ],
+                              staticClass:
+                                "uk-input uk-width-1-6 uk-margin-small-left uk-margin-medium-right",
+                              class: {
+                                "uk-text-danger": _vm.form.errors.has(
+                                  "invoice_number"
+                                )
+                              },
+                              attrs: {
+                                type: "text",
+                                name: "invoice_number",
+                                placeholder: "Number"
+                              },
+                              domProps: { value: _vm.form.invoice_number },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "invoice_number",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "invoice_number" }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "" } }, [_vm._v("от")]),
+                            _vm._v(" "),
+                            _c("date-picker", {
+                              class: {
+                                "is-invalid": _vm.form.errors.has("date")
+                              },
+                              attrs: {
+                                name: "date",
+                                "input-class": "uk-input uk-margin-small-left",
+                                type: "date",
+                                format: _vm.dateFormat
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.setDate()
+                                }
+                              },
+                              model: {
+                                value: _vm.form.date,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.form, "date", $$v)
+                                },
+                                expression: "form.date"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "date" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-margin uk-flex uk-flex-between uk-flex-middle"
+                          },
+                          [
+                            _c("label", { attrs: { for: "" } }, [
+                              _vm._v("Клиент")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.customer_id,
+                                    expression: "form.customer_id"
+                                  }
+                                ],
+                                staticClass: "uk-select uk-width-3-4",
+                                class: {
+                                  "is-invalid": _vm.form.errors.has(
+                                    "customer_id"
+                                  )
+                                },
+                                attrs: {
+                                  type: "text",
+                                  name: "customer_id",
+                                  placeholder: "Customer"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "customer_id",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    },
+                                    function($event) {
+                                      return _vm.setCustomer()
+                                    }
+                                  ]
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  {
+                                    attrs: {
+                                      default: "",
+                                      disabled: "",
+                                      value: "0"
+                                    }
+                                  },
+                                  [_vm._v("Выбрать")]
+                                ),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "add" } }, [
+                                  _vm._v("Добавить клиента")
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.company.customers, function(
+                                  customer
+                                ) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: customer.id,
+                                      domProps: {
+                                        value: customer.id,
+                                        selected:
+                                          customer.id === _vm.company.customers
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(customer.name) +
+                                          "\n                                "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "customers" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "table",
+                          { staticClass: "uk-table uk-table-middle" },
+                          [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.form.invoice_products, function(
+                                invoice_product,
+                                k
+                              ) {
+                                return _c("tr", { key: k }, [
+                                  _c("td", [
+                                    _c("span", {
+                                      staticClass: "uk-text-danger",
+                                      attrs: { "uk-icon": "icon: trash" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteRow(
+                                            k,
+                                            invoice_product
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(invoice_product.product_no) +
+                                        "\n                                    "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "select",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: invoice_product.product_id,
+                                            expression:
+                                              "invoice_product.product_id"
+                                          }
+                                        ],
+                                        staticClass: "uk-select",
+                                        attrs: { name: "product_id" },
+                                        on: {
+                                          change: [
+                                            function($event) {
+                                              var $$selectedVal = Array.prototype.filter
+                                                .call(
+                                                  $event.target.options,
+                                                  function(o) {
+                                                    return o.selected
+                                                  }
+                                                )
+                                                .map(function(o) {
+                                                  var val =
+                                                    "_value" in o
+                                                      ? o._value
+                                                      : o.value
+                                                  return val
+                                                })
+                                              _vm.$set(
+                                                invoice_product,
+                                                "product_id",
+                                                $event.target.multiple
+                                                  ? $$selectedVal
+                                                  : $$selectedVal[0]
+                                              )
+                                            },
+                                            function($event) {
+                                              return _vm.setProduct(
+                                                invoice_product
+                                              )
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "option",
+                                          {
+                                            attrs: {
+                                              default: "",
+                                              disabled: "",
+                                              value: "0"
+                                            }
+                                          },
+                                          [_vm._v("Выбрать")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "option",
+                                          { attrs: { value: "add" } },
+                                          [_vm._v("Добавить продукт")]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm._l(_vm.company.products, function(
+                                          product
+                                        ) {
+                                          return _c(
+                                            "option",
+                                            {
+                                              key: product.id,
+                                              domProps: {
+                                                value: product.id,
+                                                selected:
+                                                  product.id ===
+                                                  _vm.company.products
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                                " +
+                                                  _vm._s(product.title) +
+                                                  "\n                                            "
+                                              )
+                                            ]
+                                          )
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "option",
+                                          { attrs: { value: "selectProduct" } },
+                                          [_vm._v("Список продуктов")]
+                                        )
+                                      ],
+                                      2
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: invoice_product.product_price,
+                                          expression:
+                                            "invoice_product.product_price"
+                                        }
+                                      ],
+                                      staticClass: "uk-input",
+                                      attrs: {
+                                        name: "product_price",
+                                        type: "number",
+                                        min: "0",
+                                        step: ".01"
+                                      },
+                                      domProps: {
+                                        value: invoice_product.product_price
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.calculateLineTotal(
+                                            invoice_product
+                                          )
+                                        },
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            invoice_product,
+                                            "product_price",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: invoice_product.product_qty,
+                                          expression:
+                                            "invoice_product.product_qty"
+                                        }
+                                      ],
+                                      staticClass: "uk-input",
+                                      attrs: {
+                                        name: "product_qty",
+                                        type: "number",
+                                        min: "0",
+                                        step: "1"
+                                      },
+                                      domProps: {
+                                        value: invoice_product.product_qty
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.calculateLineTotal(
+                                            invoice_product
+                                          )
+                                        },
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            invoice_product,
+                                            "product_qty",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "select",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: invoice_product.product_tax,
+                                            expression:
+                                              "invoice_product.product_tax"
+                                          }
+                                        ],
+                                        staticClass: "uk-select uk-width-1-1",
+                                        class: {
+                                          "is-invalid": _vm.form.errors.has(
+                                            "product_tax"
+                                          )
+                                        },
+                                        attrs: { name: "product_tax" },
+                                        on: {
+                                          change: [
+                                            function($event) {
+                                              var $$selectedVal = Array.prototype.filter
+                                                .call(
+                                                  $event.target.options,
+                                                  function(o) {
+                                                    return o.selected
+                                                  }
+                                                )
+                                                .map(function(o) {
+                                                  var val =
+                                                    "_value" in o
+                                                      ? o._value
+                                                      : o.value
+                                                  return val
+                                                })
+                                              _vm.$set(
+                                                invoice_product,
+                                                "product_tax",
+                                                $event.target.multiple
+                                                  ? $$selectedVal
+                                                  : $$selectedVal[0]
+                                              )
+                                            },
+                                            function($event) {
+                                              return _vm.calculateTotal(
+                                                invoice_product
+                                              )
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "option",
+                                          { attrs: { value: "0" } },
+                                          [_vm._v("Без НДС")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "option",
+                                          { attrs: { value: "10" } },
+                                          [_vm._v("10%")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "option",
+                                          {
+                                            attrs: {
+                                              default: "",
+                                              selected: "",
+                                              value: "20"
+                                            }
+                                          },
+                                          [_vm._v("20%")]
+                                        )
+                                      ]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: invoice_product.line_total,
+                                          expression:
+                                            "invoice_product.line_total"
+                                        }
+                                      ],
+                                      staticClass: "uk-input",
+                                      attrs: {
+                                        name: "product_total",
+                                        type: "number",
+                                        min: "0",
+                                        step: ".01"
+                                      },
+                                      domProps: {
+                                        value: invoice_product.line_total
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            invoice_product,
+                                            "line_total",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "uk-margin" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "uk-button uk-button-primary",
+                              on: { click: _vm.addNewRow }
+                            },
+                            [
+                              _c("span", {
+                                attrs: { "uk-icon": "icon: plus" }
+                              }),
+                              _vm._v("Add row")
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "uk-flex uk-flex-column uk-flex-bottom"
+                          },
+                          [
+                            _c("div", { staticClass: "uk-margin" }, [
+                              _vm._v(
+                                "\n                                Итого: " +
+                                  _vm._s(
+                                    _vm._f("currency")(
+                                      _vm.form.invoice_subtotal
+                                    )
+                                  ) +
+                                  "    \n                            "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "uk-margin" }, [
+                              _vm._v(
+                                "\n                                НДС сверху: " +
+                                  _vm._s(
+                                    _vm._f("currency")(_vm.form.invoice_tax)
+                                  ) +
+                                  "    \n                            "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "uk-margin" }, [
+                              _vm._v(
+                                "\n                                Всего к оплате: " +
+                                  _vm._s(
+                                    _vm._f("currency")(_vm.form.invoice_total)
+                                  ) +
+                                  "    \n                            "
+                              )
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "uk-button uk-button-danger",
+                            attrs: { type: "button", "data-dismiss": "modal" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Close\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editMode,
+                                expression: "editMode"
+                              }
+                            ],
+                            staticClass: "uk-button uk-button-primary",
+                            attrs: { type: "submit" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Update\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editMode,
+                                expression: "!editMode"
+                              }
+                            ],
+                            staticClass: "uk-button uk-button-primary",
+                            attrs: { type: "submit" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Create\n                        "
+                            )
+                          ]
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "uk-modal-container",
+            attrs: { id: "addCustomer", "uk-modal": "" }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
+                attrs: { "uk-overflow-auto": "" }
+              },
+              [
+                _c("button", {
+                  staticClass: "uk-modal-close-default",
+                  attrs: { type: "button", "uk-close": "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeaddCustomer()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("form", [
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_inn,
+                            expression: "customer_inn"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          name: "customer_inn",
+                          placeholder: "Введите ИНН для поиска"
+                        },
+                        domProps: { value: _vm.customer_inn },
+                        on: {
+                          change: function($event) {
+                            return _vm.loadCustomer()
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.customer_inn = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _vm.customer_exist == true
+                          ? _c("span", { staticClass: "uk-text-success" }, [
+                              _vm._v("Клиент с таким ИНН уже существует")
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.customer_inn_error == true
+                          ? _c("span", { staticClass: "uk-text-danger" }, [
+                              _vm._v("Введите корректный ИНН")
+                            ])
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_name,
+                            expression: "customer_name"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Название организации",
+                          readonly: ""
+                        },
+                        domProps: { value: _vm.customer_name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.customer_name = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_kpp,
+                            expression: "customer_kpp"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          placeholder: "КПП организации",
+                          readonly: ""
+                        },
+                        domProps: { value: _vm.customer_kpp },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.customer_kpp = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_legal,
+                            expression: "customer_legal"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Юридический адрес организации",
+                          readonly: ""
+                        },
+                        domProps: { value: _vm.customer_legal },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.customer_legal = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_director,
+                            expression: "customer_director"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Директор оганизации",
+                          readonly: ""
+                        },
+                        domProps: { value: _vm.customer_director },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.customer_director = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v("Банковские реквизиты")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_bank_rs,
+                            expression: "customer_bank_rs"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "text", placeholder: "Расчетный счет" },
+                        domProps: { value: _vm.customer_bank_rs },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.customer_bank_rs = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_bank_bic,
+                            expression: "customer_bank_bic"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "text", placeholder: "БИК банка" },
+                        domProps: { value: _vm.customer_bank_bic },
+                        on: {
+                          change: function($event) {
+                            return _vm.loadBank()
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.customer_bank_bic = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_bank_ks,
+                            expression: "customer_bank_ks"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "text", placeholder: "Кор. счет" },
+                        domProps: { value: _vm.customer_bank_ks },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.customer_bank_ks = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_bank_name,
+                            expression: "customer_bank_name"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Наименование банка"
+                        },
+                        domProps: { value: _vm.customer_bank_name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.customer_bank_name = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_bank_legal,
+                            expression: "customer_bank_legal"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "text", placeholder: "Адрес банка" },
+                        domProps: { value: _vm.customer_bank_legal },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.customer_bank_legal = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "uk-button uk-button-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" },
+                        on: {
+                          click: function($event) {
+                            return _vm.closeaddCustomer()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Close\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.customer_exist,
+                            expression: "!customer_exist"
+                          }
+                        ],
+                        staticClass: "uk-button uk-button-primary",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function($event) {
+                            return _vm.createCustomer()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Create\n                        "
                         )
                       ]
                     )
                   ])
-                ]
-              )
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "uk-modal-container",
-        attrs: { id: "addCustomer", "uk-modal": "" }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
-            attrs: { "uk-overflow-auto": "" }
-          },
-          [
-            _c("button", {
-              staticClass: "uk-modal-close-default",
-              attrs: { type: "button", "uk-close": "" },
-              on: {
-                click: function($event) {
-                  return _vm.closeaddCustomer()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
-              _vm._v(" "),
-              _c("form", [
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer_inn,
-                        expression: "customer_inn"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      name: "customer_inn",
-                      placeholder: "Введите ИНН для поиска"
-                    },
-                    domProps: { value: _vm.customer_inn },
-                    on: {
-                      change: function($event) {
-                        return _vm.loadCustomer()
-                      },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.customer_inn = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "uk-margin" }, [
-                    _vm.customer_exist == true
-                      ? _c("span", { staticClass: "uk-text-success" }, [
-                          _vm._v("Клиент с таким ИНН уже существует")
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.customer_inn_error == true
-                      ? _c("span", { staticClass: "uk-text-danger" }, [
-                          _vm._v("Введите корректный ИНН")
-                        ])
-                      : _vm._e()
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer_name,
-                        expression: "customer_name"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Название организации",
-                      readonly: ""
-                    },
-                    domProps: { value: _vm.customer_name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.customer_name = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer_kpp,
-                        expression: "customer_kpp"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      placeholder: "КПП организации",
-                      readonly: ""
-                    },
-                    domProps: { value: _vm.customer_kpp },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.customer_kpp = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer_legal,
-                        expression: "customer_legal"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Юридический адрес организации",
-                      readonly: ""
-                    },
-                    domProps: { value: _vm.customer_legal },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.customer_legal = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer_director,
-                        expression: "customer_director"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Директор оганизации",
-                      readonly: ""
-                    },
-                    domProps: { value: _vm.customer_director },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.customer_director = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("h5", [_vm._v("Банковские реквизиты")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer_bank_rs,
-                        expression: "customer_bank_rs"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text", placeholder: "Расчетный счет" },
-                    domProps: { value: _vm.customer_bank_rs },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.customer_bank_rs = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer_bank_bic,
-                        expression: "customer_bank_bic"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text", placeholder: "БИК банка" },
-                    domProps: { value: _vm.customer_bank_bic },
-                    on: {
-                      change: function($event) {
-                        return _vm.loadBank()
-                      },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.customer_bank_bic = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer_bank_ks,
-                        expression: "customer_bank_ks"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text", placeholder: "Кор. счет" },
-                    domProps: { value: _vm.customer_bank_ks },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.customer_bank_ks = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer_bank_name,
-                        expression: "customer_bank_name"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text", placeholder: "Наименование банка" },
-                    domProps: { value: _vm.customer_bank_name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.customer_bank_name = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.customer_bank_legal,
-                        expression: "customer_bank_legal"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text", placeholder: "Адрес банка" },
-                    domProps: { value: _vm.customer_bank_legal },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.customer_bank_legal = $event.target.value
-                      }
-                    }
-                  })
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "uk-modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "uk-button uk-button-danger",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.closeaddCustomer()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Close\n                      "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: !_vm.customer_exist,
-                        expression: "!customer_exist"
-                      }
-                    ],
-                    staticClass: "uk-button uk-button-primary",
-                    attrs: { type: "submit" },
-                    on: {
-                      click: function($event) {
-                        return _vm.createCustomer()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Create\n                      "
-                    )
-                  ]
-                )
-              ])
-            ])
+              ]
+            )
           ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "uk-modal-container",
-        attrs: { id: "changePaidStatus", "uk-modal": "" }
-      },
-      [
+        ),
+        _vm._v(" "),
         _c(
           "div",
           {
-            staticClass:
-              "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
-            attrs: { "uk-overflow-auto": "" }
+            staticClass: "uk-modal-container",
+            attrs: { id: "changePaidStatus", "uk-modal": "" }
           },
           [
-            _c("button", {
-              staticClass: "uk-modal-close-default",
-              attrs: { type: "button", "uk-close": "" },
-              on: {
-                click: function($event) {
-                  return _vm.closePaidStatus()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "uk-modal-header" }, [
-                _c(
-                  "h5",
-                  { staticClass: "modal-title", attrs: { id: "addNewLabel" } },
-                  [
-                    _vm._v(
-                      "\n                       Счет № " +
-                        _vm._s(_vm.invoice_number) +
-                        "\n                    "
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("form", [
-                _c(
-                  "div",
-                  { staticClass: "uk-margin" },
-                  [
-                    _c("label", { attrs: { for: "" } }, [
-                      _vm._v("Дата оплаты")
-                    ]),
-                    _vm._v(" "),
-                    _c("date-picker", {
-                      class: {
-                        "is-invalid": _vm.form.errors.has("date")
-                      },
-                      attrs: {
-                        name: "date",
-                        "input-class": "uk-input uk-margin-small-left",
-                        type: "date",
-                        format: _vm.dateFormat
-                      },
-                      on: {
-                        change: function($event) {
-                          return _vm.setDate()
-                        }
-                      },
-                      model: {
-                        value: _vm.form.date,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "date", $$v)
-                        },
-                        expression: "form.date"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm._m(5)
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "uk-modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "uk-button uk-button-danger",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.closePaidStatus()
-                      }
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
+                attrs: { "uk-overflow-auto": "" }
+              },
+              [
+                _c("button", {
+                  staticClass: "uk-modal-close-default",
+                  attrs: { type: "button", "uk-close": "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closePaidStatus()
                     }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Close\n                      "
-                    )
-                  ]
-                ),
+                  }
+                }),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "uk-button uk-button-primary",
-                    attrs: { type: "submit" },
-                    on: {
-                      click: function($event) {
-                        return _vm.setPaidStatus()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Set\n                      "
-                    )
-                  ]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "uk-modal-container",
-        attrs: { id: "addProduct", "uk-modal": "" }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
-            attrs: { "uk-overflow-auto": "" }
-          },
-          [
-            _c("button", {
-              staticClass: "uk-modal-close-default",
-              attrs: { type: "button", "uk-close": "" },
-              on: {
-                click: function($event) {
-                  return _vm.closeAddProduct()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(6),
-              _vm._v(" "),
-              _c("form", [
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("Наименование")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "uk-modal-header" }, [
+                    _c(
+                      "h5",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.product_title,
-                        expression: "product_title"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.product_title },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.product_title = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("Категория")]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.product_category,
-                          expression: "product_category"
-                        }
-                      ],
-                      staticClass: "uk-select",
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.product_category = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "option",
-                        { attrs: { default: "", disabled: "", value: "" } },
-                        [_vm._v("Выбрать")]
-                      ),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "add" } }, [
-                        _vm._v("Добавить")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.company.product_categories, function(
-                        product_category
-                      ) {
-                        return _c(
-                          "option",
-                          {
-                            key: product_category.id,
-                            domProps: { value: product_category.id }
-                          },
-                          [_vm._v(_vm._s(product_category.title))]
+                        staticClass: "modal-title",
+                        attrs: { id: "addNewLabel" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Счет № " +
+                            _vm._s(_vm.paidStatusInvoiceNumer) +
+                            "\n                        "
                         )
-                      })
-                    ],
-                    2
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("Цена")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.product_price,
-                        expression: "product_price"
-                      }
-                    ],
-                    staticClass: "uk-input",
-                    attrs: { type: "number", min: "0", step: ".01" },
-                    domProps: { value: _vm.product_price },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.product_price = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("НДС")]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.product_tax,
-                          expression: "product_tax"
-                        }
-                      ],
-                      staticClass: "uk-select",
-                      attrs: { name: "" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.product_tax = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "20" } }, [_vm._v("20%")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "18" } }, [_vm._v("18%")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "10" } }, [_vm._v("10%")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "0" } }, [
-                        _vm._v("Без НДС")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("label", { attrs: { for: "" } }, [
-                    _vm._v("Ед. измерения")
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
+                  _c("div", { staticClass: "uk-modal-body" }, [
+                    _c("form", [
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Оплачен")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.paidStatusCheck,
+                              expression: "paidStatusCheck"
+                            }
+                          ],
+                          staticClass: "uk-checkbox",
+                          attrs: {
+                            type: "checkbox",
+                            "true-value": "1",
+                            "false-value": "0"
+                          },
+                          domProps: {
+                            checked: Array.isArray(_vm.paidStatusCheck)
+                              ? _vm._i(_vm.paidStatusCheck, null) > -1
+                              : _vm._q(_vm.paidStatusCheck, "1")
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.paidStatusCheck,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? "1" : "0"
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    (_vm.paidStatusCheck = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.paidStatusCheck = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
+                                }
+                              } else {
+                                _vm.paidStatusCheck = $$c
+                              }
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.product_unit,
-                          expression: "product_unit"
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.paidStatusCheck == 1,
+                              expression: "paidStatusCheck == 1"
+                            }
+                          ],
+                          staticClass: "uk-margin"
+                        },
+                        [
+                          _c("label", { attrs: { for: "" } }, [
+                            _vm._v("Дата оплаты")
+                          ]),
+                          _vm._v(" "),
+                          _c("date-picker", {
+                            attrs: {
+                              name: "date",
+                              "input-class": "uk-input uk-margin-small-left",
+                              type: "date",
+                              format: _vm.dateFormat
+                            },
+                            on: {
+                              change: function($event) {
+                                return _vm.setPaidDate()
+                              }
+                            },
+                            model: {
+                              value: _vm.paidStatusDate,
+                              callback: function($$v) {
+                                _vm.paidStatusDate = $$v
+                              },
+                              expression: "paidStatusDate"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "uk-button uk-button-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" },
+                        on: {
+                          click: function($event) {
+                            return _vm.closePaidStatus()
+                          }
                         }
-                      ],
-                      staticClass: "uk-select",
-                      attrs: { name: "" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.product_unit = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Close\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "uk-button uk-button-primary",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function($event) {
+                            return _vm.changePaidStatus()
+                          }
                         }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "шт." } }, [
-                        _vm._v("шт.")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "ед." } }, [
-                        _vm._v("ед.")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "усл." } }, [
-                        _vm._v("усл.")
-                      ])
-                    ]
-                  )
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Set\n                        "
+                        )
+                      ]
+                    )
+                  ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "uk-modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "uk-button uk-button-danger",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.closeAddProduct()
-                      }
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "uk-modal-container",
+            attrs: { id: "addProduct", "uk-modal": "" }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
+                attrs: { "uk-overflow-auto": "" }
+              },
+              [
+                _c("button", {
+                  staticClass: "uk-modal-close-default",
+                  attrs: { type: "button", "uk-close": "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeAddProduct()
                     }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Закрыть\n                      "
-                    )
-                  ]
-                ),
+                  }
+                }),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "uk-button uk-button-primary",
-                    attrs: { type: "submit" },
-                    on: {
-                      click: function($event) {
-                        return _vm.createProduct()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Создать\n                      "
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("form", [
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Наименование")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.product_title,
+                            expression: "product_title"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.product_title },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.product_title = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Категория")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.product_category,
+                              expression: "product_category"
+                            }
+                          ],
+                          staticClass: "uk-select",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.product_category = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { default: "", disabled: "", value: "" } },
+                            [_vm._v("Выбрать")]
+                          ),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "add" } }, [
+                            _vm._v("Добавить")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.company.product_categories, function(
+                            product_category
+                          ) {
+                            return _c(
+                              "option",
+                              {
+                                key: product_category.id,
+                                domProps: { value: product_category.id }
+                              },
+                              [_vm._v(_vm._s(product_category.title))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("Цена")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.product_price,
+                            expression: "product_price"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "number", min: "0", step: ".01" },
+                        domProps: { value: _vm.product_price },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.product_price = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("НДС")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.product_tax,
+                              expression: "product_tax"
+                            }
+                          ],
+                          staticClass: "uk-select",
+                          attrs: { name: "" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.product_tax = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "20" } }, [
+                            _vm._v("20%")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "18" } }, [
+                            _vm._v("18%")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "10" } }, [
+                            _vm._v("10%")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "0" } }, [
+                            _vm._v("Без НДС")
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Ед. измерения")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.product_unit,
+                              expression: "product_unit"
+                            }
+                          ],
+                          staticClass: "uk-select",
+                          attrs: { name: "" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.product_unit = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "шт." } }, [
+                            _vm._v("шт.")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "ед." } }, [
+                            _vm._v("ед.")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "усл." } }, [
+                            _vm._v("усл.")
+                          ])
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "uk-button uk-button-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" },
+                        on: {
+                          click: function($event) {
+                            return _vm.closeAddProduct()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Закрыть\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "uk-button uk-button-primary",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function($event) {
+                            return _vm.createProduct()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Создать\n                        "
+                        )
+                      ]
                     )
-                  ]
-                )
-              ])
-            ])
+                  ])
+                ])
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "uk-modal-container",
+            attrs: { id: "createSertificate", "uk-modal": "" }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
+                attrs: { "uk-overflow-auto": "" }
+              },
+              [
+                _c("button", {
+                  staticClass: "uk-modal-close-default",
+                  attrs: { type: "button", "uk-close": "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeCreateSertificateModal()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-modal-body" }, [
+                    _c("form", [
+                      _c("div", { staticClass: "uk-flex uk-flex-middle" }, [
+                        _c(
+                          "div",
+                          { staticClass: "uk-margin uk-flex uk-flex-middle" },
+                          [
+                            _c("label", [_vm._v("Номер")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.certificateNumber,
+                                  expression: "certificateNumber"
+                                }
+                              ],
+                              staticClass:
+                                "uk-input uk-margin-small-left uk-margin-small-right",
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.certificateNumber },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.certificateNumber = $event.target.value
+                                }
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-margin uk-margin-remove-top uk-flex uk-flex-middle"
+                          },
+                          [
+                            _c("label", [_vm._v("от")]),
+                            _vm._v(" "),
+                            _c("date-picker", {
+                              attrs: {
+                                name: "date",
+                                "input-class": "uk-input uk-margin-small-left",
+                                type: "date",
+                                format: _vm.dateFormat
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.setCertificateDate()
+                                }
+                              },
+                              model: {
+                                value: _vm.certificateDate,
+                                callback: function($$v) {
+                                  _vm.certificateDate = $$v
+                                },
+                                expression: "certificateDate"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("label", [_vm._v("Основание")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.certificateBasis,
+                              expression: "certificateBasis"
+                            }
+                          ],
+                          staticClass: "uk-input",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.certificateBasis },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.certificateBasis = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "uk-button uk-button-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" },
+                        on: {
+                          click: function($event) {
+                            return _vm.closeCreateSertificateModal()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Закрыть\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "uk-button uk-button-primary",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function($event) {
+                            return _vm.createAcceptanceCertificate()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Создать\n                        "
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
           ]
         )
-      ]
-    )
-  ])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -87986,19 +88735,9 @@ var staticRenderFns = [
     return _c("div", { staticClass: "uk-modal-header" }, [
       _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
         _vm._v(
-          "\n                        Создать клиента\n                    "
+          "\n                            Создать клиента\n                        "
         )
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-margin" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Оплачен")]),
-      _vm._v(" "),
-      _c("input", { staticClass: "uk-checkbox", attrs: { type: "checkbox" } })
     ])
   },
   function() {
@@ -88008,7 +88747,19 @@ var staticRenderFns = [
     return _c("div", { staticClass: "uk-modal-header" }, [
       _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
         _vm._v(
-          "\n                       Добавить продукт\n                    "
+          "\n                        Добавить продукт\n                        "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-modal-header" }, [
+      _c("h3", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
+        _vm._v(
+          "\n                        Добавить акт\n                        "
         )
       ])
     ])
@@ -88035,18 +88786,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "uk-container" },
-      [
-        _c("app-navigation", {
-          attrs: { user: _vm.userID, company: _vm.companyID }
-        }),
-        _vm._v(" "),
+  return _c(
+    "div",
+    [
+      _c("app-navigation", {
+        attrs: { user: _vm.userID, company: _vm.companyID }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-container uk-margin-small-top" }, [
         _c("ul", { staticClass: "uk-breadcrumb" }, [
-          _vm._m(0),
-          _vm._v(" "),
           _vm.invoice.company != undefined
             ? _c(
                 "li",
@@ -88154,13 +88902,13 @@ var render = function() {
                                 : _vm._e()
                             ]),
                             _vm._v(" "),
-                            _vm._m(1)
+                            _vm._m(0)
                           ]
                         )
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._m(2),
+                    _vm._m(1),
                     _vm._v(" "),
                     _vm.invoice.company != undefined
                       ? _c(
@@ -88191,7 +88939,7 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm._m(3),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c("tr", [
                     _vm.invoice.company != undefined
@@ -88230,7 +88978,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm._m(4),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -88282,7 +89030,7 @@ var render = function() {
                                 : _vm._e()
                             ]),
                             _vm._v(" "),
-                            _vm._m(5)
+                            _vm._m(4)
                           ]
                         )
                       ]
@@ -88339,7 +89087,7 @@ var render = function() {
               _c("table", { attrs: { width: "700px" } }, [
                 _vm.invoice.company != undefined
                   ? _c("tr", [
-                      _vm._m(6),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c("td", [
                         _c(
@@ -88383,7 +89131,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm.invoice.customer != undefined
                   ? _c("tr", [
-                      _vm._m(7),
+                      _vm._m(6),
                       _vm._v(" "),
                       _c("td", [
                         _c(
@@ -88441,7 +89189,7 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._m(8),
+                  _vm._m(7),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -88650,17 +89398,39 @@ var render = function() {
               _vm._v(" "),
               _c("br"),
               _vm._v(" "),
-              _vm._m(9),
+              _vm._m(8),
               _vm._v(" "),
               _c("br"),
               _c("br"),
               _vm._v(" "),
-              _vm._m(10)
+              _vm._m(9)
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "uk-width-1-4" }, [
             _c("div", { staticClass: "uk-flex uk-flex-column" }, [
+              _vm.invoice.paid_status == 1
+                ? _c("div", [
+                    _c("span", { staticClass: "uk-text-success" }, [
+                      _vm._v(
+                        "Оплачен " +
+                          _vm._s(
+                            _vm
+                              .moment(_vm.invoice.paid_date)
+                              .locale("ru")
+                              .format("LL")
+                          )
+                      )
+                    ])
+                  ])
+                : _c("div", [
+                    _c("span", { staticClass: "uk-text-danger" }, [
+                      _vm._v(
+                        "\n                            Не оплачен\n                        "
+                      )
+                    ])
+                  ]),
+              _vm._v(" "),
               _c("a", { attrs: { href: "" } }, [_vm._v("Редактировать")]),
               _vm._v(" "),
               _c(
@@ -88738,12 +89508,11 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        staticClass: "uk-button uk-button-link",
                         attrs: { href: "" },
                         on: {
                           click: function($event) {
                             $event.preventDefault()
-                            return _vm.createAcceptanceCertificate(
+                            return _vm.openCreateSertificateModal(
                               _vm.invoice.id
                             )
                           }
@@ -88761,18 +89530,179 @@ var render = function() {
             ])
           ])
         ])
-      ],
-      1
-    )
-  ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "uk-modal-container",
+          attrs: { id: "createSertificate", "uk-modal": "" }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-modal-dialog uk-modal-body uk-margin-auto-vertical",
+              attrs: { "uk-overflow-auto": "" }
+            },
+            [
+              _c("button", {
+                staticClass: "uk-modal-close-default",
+                attrs: { type: "button", "uk-close": "" },
+                on: {
+                  click: function($event) {
+                    return _vm.closeCreateSertificateModal()
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(10),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-modal-body" }, [
+                  _c("form", [
+                    _c("div", { staticClass: "uk-flex uk-flex-middle" }, [
+                      _c(
+                        "div",
+                        { staticClass: "uk-margin uk-flex uk-flex-middle" },
+                        [
+                          _c("label", [_vm._v("Номер")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.certificateNumber,
+                                expression: "certificateNumber"
+                              }
+                            ],
+                            staticClass:
+                              "uk-input uk-margin-small-left uk-margin-small-right",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.certificateNumber },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.certificateNumber = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "uk-margin uk-margin-remove-top uk-flex uk-flex-middle"
+                        },
+                        [
+                          _c("label", [_vm._v("от")]),
+                          _vm._v(" "),
+                          _c("date-picker", {
+                            attrs: {
+                              name: "date",
+                              "input-class": "uk-input uk-margin-small-left",
+                              type: "date",
+                              format: _vm.dateFormat
+                            },
+                            on: {
+                              change: function($event) {
+                                return _vm.setDate()
+                              }
+                            },
+                            model: {
+                              value: _vm.certificateDate,
+                              callback: function($$v) {
+                                _vm.certificateDate = $$v
+                              },
+                              expression: "certificateDate"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("label", [_vm._v("Основание")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.certificateBasis,
+                            expression: "certificateBasis"
+                          }
+                        ],
+                        staticClass: "uk-input",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.certificateBasis },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.certificateBasis = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "uk-button uk-button-danger",
+                      attrs: { type: "button", "data-dismiss": "modal" },
+                      on: {
+                        click: function($event) {
+                          return _vm.closeCreateSertificateModal()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                          Закрыть\n                      "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "uk-button uk-button-primary",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          return _vm.createAcceptanceCertificate()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                          Создать\n                      "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Home")])])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -88940,6 +89870,16 @@ var staticRenderFns = [
         _c("br")
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-modal-header" }, [
+      _c("h3", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
+        _vm._v("\n                       Добавить акт\n                    ")
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -108377,6 +109317,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardComponent_vue_vue_type_template_id_6522ea74___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardComponent_vue_vue_type_template_id_6522ea74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/DashboardNavigation.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/admin/DashboardNavigation.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DashboardNavigation_vue_vue_type_template_id_0b4045a6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DashboardNavigation.vue?vue&type=template&id=0b4045a6& */ "./resources/js/components/admin/DashboardNavigation.vue?vue&type=template&id=0b4045a6&");
+/* harmony import */ var _DashboardNavigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DashboardNavigation.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/DashboardNavigation.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DashboardNavigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DashboardNavigation_vue_vue_type_template_id_0b4045a6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DashboardNavigation_vue_vue_type_template_id_0b4045a6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/DashboardNavigation.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/DashboardNavigation.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/admin/DashboardNavigation.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardNavigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./DashboardNavigation.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/DashboardNavigation.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardNavigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/DashboardNavigation.vue?vue&type=template&id=0b4045a6&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/admin/DashboardNavigation.vue?vue&type=template&id=0b4045a6& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardNavigation_vue_vue_type_template_id_0b4045a6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./DashboardNavigation.vue?vue&type=template&id=0b4045a6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/DashboardNavigation.vue?vue&type=template&id=0b4045a6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardNavigation_vue_vue_type_template_id_0b4045a6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardNavigation_vue_vue_type_template_id_0b4045a6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

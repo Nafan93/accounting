@@ -1,117 +1,121 @@
 <template>
-    <div class="uk-container">
+    <div>
         <app-navigation v-bind:user="userID" v-bind:company="companyID"></app-navigation>
-        <ul class="uk-breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li v-if="certificate.company != undefined">
-                    <router-link :key="companyID" :to="{ name: 'showCompany', params: { companyID: companyID }}" >{{ certificate.company.name }}</router-link>
-                </li>
-                <li>
-                    <router-link :key="companyID" :to="{ name: 'AcceptanceCertificate', params: { companyID: companyID }}" >Акты</router-link>
-                </li>
-                <li v-if="certificate.number != undefined">
-                    <span>Акт № {{ certificate.number }} от {{ moment(certificate.date).locale('ru').format('LL') }}</span>
-                </li>
-            </ul> 
-        <div uk-grid>
-            <div class="uk-width-3-4">
-                <div class="document" id="document">
-                    <table cellspacing="0" style="width: 700px;font-size: 16px;">
-                        <tr>
-                            <td colspan="6" style="border-bottom: 3px solid #000;font-size: 25px;font-weight: bold;">Акт № {{ certificate.number }} от {{ moment(certificate.date).locale('ru').format('LL') }}</td>
-                        </tr>
-                        <tr height="15px;">
-                            <td colspan="6"></td>
-                        </tr>
-                        <tr>
-                            <td>Исполнитель:</td>
-                            <td colspan="5" style="font-weight: bold;"  v-if="certificate.invoice != undefined">{{ certificate.invoice.company.full_name }}, ИНН/КПП: {{ certificate.invoice.company.inn }}/{{ certificate.invoice.company.kpp }}, {{ certificate.invoice.company.legal_addres }} </td>
-                        </tr>
-                        <tr height="15px;">
-                            <td colspan="6"></td>
-                        </tr>
-                        <tr>
-                            <td>Заказчик:</td>
-                            <td colspan="5" style="font-weight: bold;" v-if="certificate.invoice != undefined">{{ certificate.invoice.customer.full_name }} ИНН/КПП: {{ certificate.invoice.customer.inn }}/{{ certificate.invoice.customer.kpp }}, {{ certificate.invoice.customer.legal_addres }}</td>
-                        </tr>
-                        <tr height="15px;">
-                            <td colspan="6"></td>
-                        </tr>
-                        <tr style="font-weight: bold;text-align: center;">
-                            <td style="border: 1px solid #000;border-top: 2px solid #000;border-left: 2px solid #000;border-bottom: 1px solid #000;">№</td>
-                            <td style="border: 1px solid #000;border-top: 2px solid #000;border-bottom: 1px solid #000;">Наименование работ, услуг</td>
-                            <td style="border: 1px solid #000;border-top: 2px solid #000;border-bottom: 1px solid #000;">Кол-во</td>
-                            <td style="border: 1px solid #000;border-top: 2px solid #000;border-bottom: 1px solid #000;">Ед.</td>
-                            <td style="border: 1px solid #000;border-top: 2px solid #000;border-bottom: 1px solid #000;">Цена</td>
-                            <td style="border: 1px solid #000;border-top: 2px solid #000;border-right: 2px solid #000;border-bottom: 1px solid #000;">Сумма</td>
-                        </tr>
-                        <tr v-for="line_product in lines" :key="line_product.id">
-                            <td style="border: 1px solid #000;border-top: 1px solid #000;border-left: 2px solid #000;border-bottom: 0px solid #000;text-align: center;">{{ line_product.product_no }}</td>
-                            <td style="border: 1px solid #000;border-top: 1px solid #000;border-bottom: 0px solid #000;">{{ line_product.product_title }}</td>
-                            <td style="border: 1px solid #000;border-top: 1px solid #000;border-bottom: 0px solid #000;text-align: right;">{{ line_product.product_qty }}</td>
-                            <td style="border: 1px solid #000;border-top: 1px solid #000;border-bottom: 0px solid #000;text-align: right;">{{ line_product.product_unit }}</td>
-                            <td style="border: 1px solid #000;border-top: 1px solid #000;border-bottom: 0px solid #000;text-align: right;">{{ line_product.product_price | currency }}</td>
-                            <td style="border: 1px solid #000;border-top: 1px solid #000;border-right: 2px solid #000;border-bottom: 0px solid #000;text-align: right;">{{ line_product.line_total | currency }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" style="border-top: 3px solid #000;"></td>
-                        </tr>
-                        <tr height="15px;">
-                            <td colspan="6"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" style="font-weight: bold;text-align: right;">Итого:</td>
-                            <td style="font-weight: bold;text-align: right;">{{ certificate.total | currency }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" style="font-weight: bold;text-align: right;">В том числе НДС:</td>
-                            <td style="font-weight: bold;text-align: right;">{{ certificate.tax | currency }}</td>
-                        </tr>
-                        <tr height="15px;">
-                            <td colspan="6"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6">Всего оказано услуг {{ lines.length }}, на сумму {{ certificate.total | currency }} рублей</td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" style="font-weight: bold;">{{ total }}</td>
-                        </tr>
-                        <tr height="15px;">
-                            <td colspan="6"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6">Вышеперечисленные услуги выполнены полностью и в срок. Заказчик претензий по объему, качеству и срокам оказания услуг не имеет.</td>
-                        </tr>
-                        <tr height="50px;">
-                            <td colspan="6"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="font-weight: bold;">ИСПОЛНИТЕЛЬ</td>
-                            <td></td>
-                            <td colspan="4" style="font-weight: bold;">ЗАКАЗЧИК</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" v-if="certificate.invoice != undefined">_______/{{ certificate.invoice.company.director_name }}</td>
-                            <td></td>
-                            <td colspan="4" v-if="certificate.invoice != undefined">_______/{{ certificate.invoice.customer.director_name }}</td>
-                        </tr>
-                        <tr height="100px;">
-                            <td colspan="6"></td>
-                        </tr>
-                        <tr>
-                            
-                        </tr>
-                    </table>
+        <div class="uk-container uk-margin-small-top">
+            <ul class="uk-breadcrumb">
+                    <li v-if="certificate.company != undefined">
+                        <router-link :key="companyID" :to="{ name: 'showCompany', params: { companyID: companyID }}" >{{ certificate.company.name }}</router-link>
+                    </li>
+                    <li>
+                        <router-link :key="companyID" :to="{ name: 'AcceptanceCertificate', params: { companyID: companyID }}" >Акты</router-link>
+                    </li>
+                    <li v-if="certificate.number != undefined">
+                        <span>Акт № {{ certificate.number }} от {{ certificate.date }}</span>
+                    </li>
+                </ul> 
+            <div uk-grid>
+                <div class="uk-width-3-4">
+                    <div class="document" id="document">
+                        <table cellspacing="0" style="width: 700px;font-size: 16px;">
+                            <tr>
+                                <td colspan="6" style="border-bottom: 3px solid #000;font-size: 25px;font-weight: bold;">Акт № {{ certificate.number }} от {{ moment(certificate.date).locale('ru').format('LL') }}</td>
+                            </tr>
+                            <tr height="15px;">
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr>
+                                <td>Исполнитель:</td>
+                                <td colspan="5" style="font-weight: bold;"  v-if="certificate.invoice != undefined">{{ certificate.invoice.company.full_name }}, ИНН/КПП: {{ certificate.invoice.company.inn }}/{{ certificate.invoice.company.kpp }}, {{ certificate.invoice.company.legal_addres }} </td>
+                            </tr>
+                            <tr height="15px;">
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr>
+                                <td>Заказчик:</td>
+                                <td colspan="5" style="font-weight: bold;" v-if="certificate.invoice != undefined">{{ certificate.invoice.customer.full_name }} ИНН/КПП: {{ certificate.invoice.customer.inn }}/{{ certificate.invoice.customer.kpp }}, {{ certificate.invoice.customer.legal_addres }}</td>
+                            </tr>
+                            <tr>
+                                <td>Основание:</td>
+                                <td colspan="5">{{ certificate.basis }}</td>
+                            </tr>
+                            <tr height="15px;">
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr style="font-weight: bold;text-align: center;">
+                                <td style="border: 1px solid #000;border-top: 2px solid #000;border-left: 2px solid #000;border-bottom: 1px solid #000;">№</td>
+                                <td style="border: 1px solid #000;border-top: 2px solid #000;border-bottom: 1px solid #000;">Наименование работ, услуг</td>
+                                <td style="border: 1px solid #000;border-top: 2px solid #000;border-bottom: 1px solid #000;">Кол-во</td>
+                                <td style="border: 1px solid #000;border-top: 2px solid #000;border-bottom: 1px solid #000;">Ед.</td>
+                                <td style="border: 1px solid #000;border-top: 2px solid #000;border-bottom: 1px solid #000;">Цена</td>
+                                <td style="border: 1px solid #000;border-top: 2px solid #000;border-right: 2px solid #000;border-bottom: 1px solid #000;">Сумма</td>
+                            </tr>
+                            <tr v-for="line_product in lines" :key="line_product.id">
+                                <td style="border: 1px solid #000;border-top: 1px solid #000;border-left: 2px solid #000;border-bottom: 0px solid #000;text-align: center;">{{ line_product.product_no }}</td>
+                                <td style="border: 1px solid #000;border-top: 1px solid #000;border-bottom: 0px solid #000;">{{ line_product.product_title }}</td>
+                                <td style="border: 1px solid #000;border-top: 1px solid #000;border-bottom: 0px solid #000;text-align: right;">{{ line_product.product_qty }}</td>
+                                <td style="border: 1px solid #000;border-top: 1px solid #000;border-bottom: 0px solid #000;text-align: right;">{{ line_product.product_unit }}</td>
+                                <td style="border: 1px solid #000;border-top: 1px solid #000;border-bottom: 0px solid #000;text-align: right;">{{ line_product.product_price | currency }}</td>
+                                <td style="border: 1px solid #000;border-top: 1px solid #000;border-right: 2px solid #000;border-bottom: 0px solid #000;text-align: right;">{{ line_product.line_total | currency }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="border-top: 3px solid #000;"></td>
+                            </tr>
+                            <tr height="15px;">
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="font-weight: bold;text-align: right;">Итого:</td>
+                                <td style="font-weight: bold;text-align: right;">{{ certificate.total | currency }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="font-weight: bold;text-align: right;">В том числе НДС:</td>
+                                <td style="font-weight: bold;text-align: right;">{{ certificate.tax | currency }}</td>
+                            </tr>
+                            <tr height="15px;">
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">Всего оказано услуг {{ lines.length }}, на сумму {{ certificate.total | currency }} рублей</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="font-weight: bold;">{{ total }}</td>
+                            </tr>
+                            <tr height="15px;">
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">Вышеперечисленные услуги выполнены полностью и в срок. Заказчик претензий по объему, качеству и срокам оказания услуг не имеет.</td>
+                            </tr>
+                            <tr height="50px;">
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="font-weight: bold;">ИСПОЛНИТЕЛЬ</td>
+                                <td></td>
+                                <td colspan="4" style="font-weight: bold;">ЗАКАЗЧИК</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" v-if="certificate.invoice != undefined">_______/{{ certificate.invoice.company.director_name }}</td>
+                                <td></td>
+                                <td colspan="4" v-if="certificate.invoice != undefined">_______/{{ certificate.invoice.customer.director_name }}</td>
+                            </tr>
+                            <tr height="100px;">
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <div class="uk-width-1-4">
-                <div class="uk-flex uk-flex-column">
-                    <a href="">Отправить</a>
-                    <a href="" @click.prevent="print()">Печать</a>
-                    <a href="" @click.prevent="createPDF">Скачать</a>
-                    <a href="">Передан</a>
-                    <a href="">Подписан</a>
-                    <a href="">Удалить</a>
+                <div class="uk-width-1-4">
+                    <div class="uk-flex uk-flex-column">
+                        <a href="">Отправить</a>
+                        <a href="" @click.prevent="print()">Печать</a>
+                        <a href="" @click.prevent="createPDF">Скачать</a>
+                        <a href="">Передан</a>
+                        <a href="">Подписан</a>
+                        <a href="">Удалить</a>
+                    </div>
                 </div>
             </div>
         </div>

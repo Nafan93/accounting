@@ -30,6 +30,7 @@ class CreateInvoicesTable extends Migration
             $table->float('invoice_subtotal', 8,2);
             $table->float('invoice_tax', 8,2);
             $table->float('invoice_total', 8,2);
+            
             $table->boolean('paid_status')->default(0);
             $table->string('paid_date')->nullable();
 

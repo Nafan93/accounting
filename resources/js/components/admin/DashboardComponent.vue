@@ -1,136 +1,140 @@
 <template>
-    <div class="uk-container">
-        <div class="uk-width-1-1">
-            <div class="uk-card">
-                <div class="uk-card-header uk-flex uk-flex-middle uk-flex-between">
-                    <h3 class="uk-card-title uk-margin-remove">Мои компании</h3>
-                    <div>
-                        <button
-                            class="uk-button uk-button-primary"
-                            type="button"
-                            uk-toggle="target: #addNew"
-                        >
-                            Создать компанию
-                        </button>
+     <div>
+        <dash-navigation v-bind:user="userID"></dash-navigation>
+        <div class="uk-container uk-margin-small-top">
+            <div class="uk-width-1-1">
+                <div class="uk-card">
+                    <div class="uk-card-header uk-flex uk-flex-middle uk-flex-between">
+                        <h3 class="uk-card-title uk-margin-remove">Мои компании</h3>
+                        <div>
+                            <button
+                                class="uk-button uk-button-primary"
+                                type="button"
+                                uk-toggle="target: #addNew"
+                            >
+                                Создать компанию
+                            </button>
+                        </div>
                     </div>
+
+                    <div class="card-body table-responsive p-0">
+                        <table class="uk-table">
+                            <tbody>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Директор</th>
+                                    <th>ИНН</th>
+                                    <th>КПП</th>
+                                    <th>Юредический адрес</th>
+                                </tr>
+
+                                <tr v-for="company in user.companies" :key="company.id">
+                                    <td>
+                                        <router-link :key="company.id" :to="{ name: 'showCompany', params: { companyID: company.id, userID: user.id}}" >{{ company.name }}</router-link>
+                                        
+                                    </td>
+                                    <td>{{ company.director_name }}</td>
+                                    <td>{{ company.inn }}</td>
+                                    <td>{{ company.kpp }}</td>
+                                    <td>{{ company.legal_addres }}</td>
+                                    <td>
+                                        <a
+                                            href="#"
+                                            data-id="company.id"
+                                            @click="editModalWindow(company)"
+                                        >
+                                            <span uk-icon="pencil"></span>
+                                        </a>
+                                        <span>|</span>
+                                        <a href="#" @click="deleteCompany(company.id)">
+                                            <span uk-icon="close"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="uk-card-footer"></div>
                 </div>
-
-                <div class="card-body table-responsive p-0">
-                    <table class="uk-table">
-                        <tbody>
-                            <tr>
-                                <th>Название</th>
-                                <th>Директор</th>
-                                <th>ИНН</th>
-                                <th>КПП</th>
-                                <th>Юредический адрес</th>
-                            </tr>
-
-                            <tr v-for="company in user.companies" :key="company.id">
-                                <td>
-                                    <router-link :key="company.id" :to="{ name: 'showCompany', params: { companyID: company.id, userID: user.id}}" >{{ company.name }}</router-link>
-                                    
-                                </td>
-                                <td>{{ company.director_name }}</td>
-                                <td>{{ company.inn }}</td>
-                                <td>{{ company.kpp }}</td>
-                                <td>{{ company.legal_addres }}</td>
-                                <td>
-                                    <a
-                                        href="#"
-                                        data-id="company.id"
-                                        @click="editModalWindow(company)"
-                                    >
-                                        <span uk-icon="pencil"></span>
-                                    </a>
-                                    <span>|</span>
-                                    <a href="#" @click="deleteCompany(company.id)">
-                                        <span uk-icon="close"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="uk-card-footer"></div>
             </div>
-        </div>
 
-        <div id="addNew"  uk-modal aria-labelledby="addNewLabel" aria-hidden="true">
-            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
-              <button class="uk-modal-close-default" type="button" @click="closeCreateCompany()" uk-close></button>
-                <div class="modal-content">
-                    <div class="uk-modal-header">
-                        <h5 class="modal-title" id="addNewLabel">
-                            Создать компанию
-                        </h5>
-                    </div>
-                        <form >
-                            <div class="uk-margin">
-                                <input type="text" name="company_inn" v-model="company_inn" class="uk-input" placeholder="Введите ИНН для поиска" @change="setCompany()">
+            <div id="addNew"  uk-modal aria-labelledby="addNewLabel" aria-hidden="true">
+                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" uk-overflow-auto>
+                <button class="uk-modal-close-default" type="button" @click="closeCreateCompany()" uk-close></button>
+                    <div class="modal-content">
+                        <div class="uk-modal-header">
+                            <h5 class="modal-title" id="addNewLabel">
+                                Создать компанию
+                            </h5>
+                        </div>
+                            <form >
                                 <div class="uk-margin">
-                                    <span v-if="company_exist == true" class="uk-text-success">Клиент с таким ИНН уже существует</span>
-                                    <span v-if="company_inn_error == true" class="uk-text-danger">Введите корректный ИНН</span>
+                                    <input type="text" name="company_inn" v-model="company_inn" class="uk-input" placeholder="Введите ИНН для поиска" @change="setCompany()">
+                                    <div class="uk-margin">
+                                        <span v-if="company_exist == true" class="uk-text-success">Клиент с таким ИНН уже существует</span>
+                                        <span v-if="company_inn_error == true" class="uk-text-danger">Введите корректный ИНН</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="company_name" placeholder="Название организации" readonly>
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="company_kpp" placeholder="КПП организации" readonly>
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="company_legal" placeholder="Юридический адрес организации" readonly> 
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="company_director" placeholder="Директор оганизации" readonly>
-                            </div>
-                            <h5>Банковские реквизиты</h5>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="company_bank_rs" placeholder="Расчетный счет">
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="company_bank_bic" placeholder="БИК банка" @change="setBank()">
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="company_bank_ks" placeholder="Кор. счет">
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="company_bank_name" placeholder="Наименование банка">
-                            </div>
-                            <div class="uk-margin">
-                                <input type="text" class="uk-input" v-model="company_bank_legal" placeholder="Адрес банка">
-                            </div>
-                        </form>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="company_name" placeholder="Название организации" readonly>
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="company_kpp" placeholder="КПП организации" readonly>
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="company_legal" placeholder="Юридический адрес организации" readonly> 
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="company_director" placeholder="Директор оганизации" readonly>
+                                </div>
+                                <h5>Банковские реквизиты</h5>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="company_bank_rs" placeholder="Расчетный счет">
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="company_bank_bic" placeholder="БИК банка" @change="setBank()">
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="company_bank_ks" placeholder="Кор. счет">
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="company_bank_name" placeholder="Наименование банка">
+                                </div>
+                                <div class="uk-margin">
+                                    <input type="text" class="uk-input" v-model="company_bank_legal" placeholder="Адрес банка">
+                                </div>
+                            </form>
+                        
+                        <div class="uk-modal-footer">
+                            <button
+                                type="button"
+                                class="uk-button uk-button-danger"
+                                data-dismiss="modal"
+                                @click="closeaddcompany()"
+                            >
+                                Close
+                            </button>
+                        
+                            <button
+                                type="submit"
+                                class="uk-button uk-button-primary"
+                                @click="createCompany()"
+                                v-show="!company_exist"
+                            >
+                                Create
+                            </button>
+                        </div>
+                    </div>
                     
-                    <div class="uk-modal-footer">
-                          <button
-                              type="button"
-                              class="uk-button uk-button-danger"
-                              data-dismiss="modal"
-                              @click="closeaddcompany()"
-                          >
-                              Close
-                          </button>
-                      
-                          <button
-                              type="submit"
-                              class="uk-button uk-button-primary"
-                              @click="createCompany()"
-                              v-show="!company_exist"
-                          >
-                              Create
-                          </button>
-                      </div>
                 </div>
-                
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import Navigation from "./DashboardNavigation.vue";
 export default {
     props: ['userID'],
     data() {
@@ -340,6 +344,9 @@ export default {
             //custom events fire on
             this.loadCompany();
         });
-    }
+    },
+    components: {
+        dashNavigation: Navigation,
+    },
 };
 </script>
